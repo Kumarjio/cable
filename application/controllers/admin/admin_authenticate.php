@@ -12,7 +12,7 @@ class admin_authenticate extends CI_Controller {
 // __construct
 
     function index() {
-        $this->layout->view('admin/admin_login_view');
+        $this->load->view('admin/admin_login_view');
     }
 
     function login() {
