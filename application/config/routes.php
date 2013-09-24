@@ -38,9 +38,11 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "admin/admin_authenticate/index";
 $route['404_override'] = '';
 
+
+$route['admin'] = "admin/admin_authenticate/index";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
