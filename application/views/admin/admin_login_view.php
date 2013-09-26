@@ -15,8 +15,55 @@
     </head>
     <body>
         <div class="container text-center">
-                <h1 class="login-page-logo">S C <span  class="glyphicon glyphicon-star-empty"></span> Cable</h1>
-            <div class="clearfix"></div>
+            <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">S C <span  class="glyphicon glyphicon-star-empty"></span> Cable</h1>
+            <br />
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+                <legend>Please Provide the credentials</legend>
+                <?php if ($this->session->flashdata('login_error') != '') { ?>
+                    <div class="alert alert-error"> <a class="close" data-dismiss="alert" href="#">x</a><?php echo $this->session->flashdata('login_error'); ?></div>
+                <?php } ?>
+
+                <?php if ($this->session->flashdata('success') != '') { ?>
+                    <div class="alert alert-success"> <a class="close" data-dismiss="alert" href="#">x</a><?php echo $this->session->flashdata('success'); ?></div>
+                <?php } ?>
+
+                <form action="<?php echo base_url() . 'admin/validateuser'; ?>" method="post" class="form">
+                    <div class="form-group">
+                        <input type="email" name="admin_mail_address" value="<?php echo set_value('admin_mail_address'); ?>" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="E-Mail Address"/>
+                        <span class="col-md-4 text-error"><?php echo form_error('admin_mail_address'); ?></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" id="password" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" name="admin_password" placeholder="Password">
+                        <span class="col-md-4 text-error"><?php echo form_error('admin_password'); ?></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" name="submit" class="btn-sm btn-info col-xs-12 col-sm-12 col-md-12 col-lg-12">Login</button>
+                    </div>
+
+                    <div class="form-group">
+                        <a href="<?php echo base_url() . 'admin/forgot_password'; ?>"><button type="button" class="btn-sm btn-inverse col-xs-12 col-sm-12 col-md-12 col-lg-12">Forgot Password ?</button></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="mar-10"></div>
+        <div id="footer">
+            <div class="container">
+                <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <span class="text-muted pull-left">
+                        All right are reserved by &copy;
+                        <a href="#">S C <span  class="glyphicon glyphicon-star-empty"></span> Cable</a>
+                    </span> 
+                </span>
+                <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <span class="text-muted pull-right">
+                        Design and Developed by : 
+                        <a href="#">Rana</a>
+                    </span>
+                </span>
+            </div>
         </div>
     </body>
 </html>
