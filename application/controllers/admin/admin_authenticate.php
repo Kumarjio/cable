@@ -7,6 +7,8 @@ class admin_authenticate extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+
+        $this->load->model('admin_aunthenticate_model');
     }
 
 // __construct
@@ -17,22 +19,23 @@ class admin_authenticate extends CI_Controller {
 
     function login() {
         $data['error'] = '';
-        $this->form_validation->set_rules('username', 'Email Address', 'trim|required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
-        $login = array();
-        $login['username'] = $this->input->post('username');
-        $login['password'] = md5($this->input->post('password'));
-        $this->form_validation->set_message('required', '%s is required.');
+
+        $obj = new admin_aunthenticate_model();
+        $this->form_validation->set_rules($obj->validationRules());
+
+        $username = $this->input->post('admin_mail_address');
+        $password = $this->input->post('admin_password');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('admin/admin_login_view', $data);
+            $this->index();
         } else {
-            $login_chek = $this->admin_aunthenticate_model->checkLogin($login['username'], $login['password']);
-            if (isset($login_chek) && $login_chek !== false) {
-                redirect(base_url() . 'admin/user_list');
+            $login_check = $obj->checkLogin($username, $password);
+
+            if (isset($login_check) && $login_check !== false) {
+                redirect(base_url() . 'admin/dashboard');
             } else {
-                $data['error'] = 'login';
-                $this->load->view('admin/admin_login_view', $data);
+                $this->session->set_flashdata('login_error', 'Invalid Username or password');
+                redirect(base_url(), 'refresh');
             }
         }
     }
@@ -44,8 +47,6 @@ class admin_authenticate extends CI_Controller {
         $this->session->unset_userdata('session_admin_lname');
         redirect(base_url() . 'admin');
     }
-
-// logout
 
     function forget_password() {
         $data = array();
@@ -140,22 +141,6 @@ class admin_authenticate extends CI_Controller {
                 }
             } else {
                 $this->reset_password($randid);
-            }
-        }
-    }
-
-    function home() {
-        check_admin(true);
-        $data = array();
-        $this->layout_admin->view('admin/admin_home_view', $data);
-    }
-
-    function checkLogin() {
-
-        if ($this->router->fetch_class() == 'admin' && $this->router->fetch_method() != 'index' && $this->router->fetch_method() != 'login') {
-            if ($this->session->userdata('session_admin_id') == '') {
-                $data['error'] = 'login';
-                redirect(base_url() . 'admin/index');
             }
         }
     }

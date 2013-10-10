@@ -43,6 +43,7 @@ $route['404_override'] = '';
 
 
 $route['admin'] = "admin/admin_authenticate/index";
-
+$route['admin/validateadmin']= "admin/admin_authenticate/login";
+$route['admin/logout']= "admin/admin_authenticate/logout";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

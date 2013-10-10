@@ -20,22 +20,28 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
                 <legend>Please Provide the credentials</legend>
                 <?php if ($this->session->flashdata('login_error') != '') { ?>
-                    <div class="alert alert-error"> <a class="close" data-dismiss="alert" href="#">x</a><?php echo $this->session->flashdata('login_error'); ?></div>
+                    <div class="alert alert-danger">
+                        <a class="close" data-dismiss="alert" href="#">x</a>
+                        <strong><?php echo $this->session->flashdata('login_error'); ?></strong>
+                    </div>
                 <?php } ?>
 
                 <?php if ($this->session->flashdata('success') != '') { ?>
-                    <div class="alert alert-success"> <a class="close" data-dismiss="alert" href="#">x</a><?php echo $this->session->flashdata('success'); ?></div>
+                    <div class="alert alert-success">
+                        <a class="close" data-dismiss="alert" href="#">x</a>
+                            <strong><?php echo $this->session->flashdata('success'); ?></strong>
+                    </div>
                 <?php } ?>
 
-                <form action="<?php echo base_url() . 'admin/validateuser'; ?>" method="post" class="form">
+                <form action="<?php echo base_url() . 'admin/validateadmin'; ?>" method="post" class="form">
                     <div class="form-group">
                         <input type="email" name="admin_mail_address" value="<?php echo set_value('admin_mail_address'); ?>" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="E-Mail Address"/>
-                        <span class="col-md-4 text-error"><?php echo form_error('admin_mail_address'); ?></span>
+                        <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-danger"><?php echo form_error('admin_mail_address'); ?></span>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" id="password" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" name="admin_password" placeholder="Password">
-                        <span class="col-md-4 text-error"><?php echo form_error('admin_password'); ?></span>
+                        <input type="password" id="admin_password" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" name="admin_password" placeholder="Password">
+                        <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-danger"><?php echo form_error('admin_password'); ?></span>
                     </div>
 
                     <div class="form-group">
