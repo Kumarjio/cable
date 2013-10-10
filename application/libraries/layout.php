@@ -25,6 +25,10 @@ class layout {
         $this->$key = $val;
     }
 
+    function setPageTitle($title) {
+        $this->page_title = $title;
+    }
+
     function view($view, $data = null, $return = false) {
         $loadedData = array();
         $loadedData['page_title'] = $this->page_title;

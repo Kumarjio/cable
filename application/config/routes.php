@@ -45,5 +45,13 @@ $route['404_override'] = '';
 $route['admin'] = "admin/admin_authenticate/index";
 $route['admin/validateadmin']= "admin/admin_authenticate/login";
 $route['admin/logout']= "admin/admin_authenticate/logout";
+
+//Admin Dashboard
+$route['admin/dashboard'] = "admin/dashboard/index";
+
+//Admin Profile
+$route['admin/proflie'] = "admin/profile/index";
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

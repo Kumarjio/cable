@@ -7,6 +7,7 @@ class admin_aunthenticate_model extends CI_Model {
     public $username;
     public $email;
     public $password;
+    public $avtar;
     public $last_login_details;
     public $created_datetime;
     public $modify_datetime;
@@ -39,10 +40,11 @@ class admin_aunthenticate_model extends CI_Model {
         $new->username = $old->username;
         $new->email = $old->email;
         $new->password = $old->password;
+        $new->avtar = $old->avtar;
         $new->last_login_details = $old->last_login_details;
         $new->created_datetime = $old->created_datetime;
         $new->modify_datetime = $old->modify_datetime;
-        
+
         return $new;
     }
 
@@ -52,6 +54,7 @@ class admin_aunthenticate_model extends CI_Model {
         $arr['username'] = $this->username;
         $arr['email'] = $this->email;
         $arr['password'] = $this->password;
+        $arr['avtar'] = $this->avtar;
         $arr['last_login_details'] = $this->last_login_details;
         $arr['created_datetime'] = $this->created_datetime;
         $arr['modify_datetime'] = $this->modify_datetime;
@@ -76,8 +79,16 @@ class admin_aunthenticate_model extends CI_Model {
 
         if (is_array($check_data) && count($check_data) == 1) {
             //$this->updateLastLoignDate($email);
-            $admin_session = array('session_admin_id' => $check_data[0]->adminid, 'session_admin_name' => $check_data[0]->username, 'session_admin_email' => $check_data[0]->email, 'language' => 1);
-            $session = array('admin_details' => $admin_session, 'logged_in' => true);
+            $admin_session = array(
+                'session_admin_id' => $check_data[0]->adminid,
+                'session_admin_name' => $check_data[0]->username,
+                'session_admin_email' => $check_data[0]->email,
+                'session_admin_language' => 1,
+                'session_last_login_details' => $check_data[0]->last_login_details,
+                'session_admin_avtar' => $check_data[0]->avtar,
+                'admin_logged_in' => true
+            );
+            $session = array('admin_details' => $admin_session);
             $this->session->set_userdata($session);
             $login = true;
         } else {

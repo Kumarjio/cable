@@ -2,6 +2,10 @@
 
 .mar-10 { margin: 25px 0 ;}
 
+.admin-img{
+    width: 60px;
+    margin: 15px 0 0 15px;
+}
 #footer{
     background-color: #eee;
     padding: 5px;

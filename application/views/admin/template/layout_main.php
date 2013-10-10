@@ -5,6 +5,7 @@
         <title><?php echo $page_title; ?></title>
         <!-- Bootstrap -->
         <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet" media="screen">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -13,9 +14,24 @@
         <![endif]-->
     </head>
     <body>
+        <?php $session_data = $this->session->userdata('admin_details'); ?>
         <div class="container">
-            <div class="page-header">
-                <h1 class="pull-left">S C <span  class="glyphicon glyphicon-star-empty"></span> Cable</h1>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left">
+                <div class="page-header">
+                    <h1 class="pull-left">S C <span  class="glyphicon glyphicon-star-empty"></span> Cable</h1>
+                </div>    
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="pull-right">
+                    <img src="<?php echo base_url() . 'assets/admin_images/' . $session_data['session_admin_avtar']; ?>" class="img-circle admin-img"/>
+                </div> 
+                <div class="pull-right">
+                    <h1>
+                        <h6 class=""><?php echo 'Last login details : ' . date('dS F Y h:i:s A', strtotime($session_data['session_last_login_details'])); ?></h6>
+                        <h4 class="pull-right"><?php echo $session_data['session_admin_name']; ?></h4>
+                    </h1>
+                </div>  
 
             </div>
             <div class="clearfix"></div>
@@ -37,10 +53,10 @@
                                 <li><a href="#">One more separated link</a></li>
                             </ul>
                         </li>
-
+                        <li><a href="<?php echo base_url() .'admin/profile'; ?>">Change Details</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="text-danger"><a href="#"><span  class="glyphicon glyphicon-off"></span></a></li>
+                        <li class="text-danger"><a href="<?php echo base_url() . 'admin/logout' ?>"><span  class="glyphicon glyphicon-off"></span></a></li>
                     </ul>
                 </div>
             </div>

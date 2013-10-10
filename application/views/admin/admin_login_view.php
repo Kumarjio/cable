@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="password" id="admin_password" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" name="admin_password" placeholder="Password">
+                        <input type="password" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" name="admin_password">
                         <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-danger"><?php echo form_error('admin_password'); ?></span>
                     </div>
 
