@@ -1,26 +1,23 @@
 <script type="text/javascript">
-//<![CDATA[
-        jQuery(document).ready(function($){
-            $("#editAdminDetails").validate({
-                rules: {
-                    name:{required:true},
-                    mail_address:{required:true}
-                },messages:{
-                    name:{required:'* Name is reqired'},
-                    mail_address:{required:'* Email is reqired'}
-                },
-                highlight: function(element) {
-                    $(element).parent().removeClass("error");
-                },
-                unhighlight: function(element) {
-                    $(element).parent().removeClass("error");
-                }
-            });
+    //<![CDATA[
+    $(document).ready(function($){
+        $("#editAdminDetails").validate({
+            rules: {
+                name:{required:true},
+                mail_address:{required:true}
+            },messages:{
+                name:{required:'* Name is reqired'},
+                mail_address:{required:'* Email is reqired'}
+            }
         });
-        //]]>
+    });
+    //]]>
 </script>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <legend>Edit your detail</legend>
+    <legend>
+        <?php echo $this->lang->line('edit_your_details'); ?>
+    </legend>
+    <?php $session_data = $this->session->userdata('admin_details'); ?>
     <?php if ($this->session->flashdata('error') != '') { ?>
         <div class="alert alert-danger">
             <a class="close" data-dismiss="alert" href="#">x</a>
@@ -35,16 +32,17 @@
         </div>
     <?php } ?>
 
-        <form action="#" method="post" class="form-horizontal" role="form" id="editAdminDetails">       
+    <form action="<?php echo base_url() . 'admin/proflie/update'; ?>" method="post" class="form-horizontal" id="editAdminDetails">       
         <div class="form-group">
-            <label class="col-sm-1 control-label">Name &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('name'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-3">
                 <input type="text" name="name" class="form-control" id="name">
-                <?php echo form_error("last_name"); ?>
+                <?php echo form_error("name"); ?>
             </div>
         </div>
+
         <div class="form-group">
-            <label class="col-sm-1 control-label">Email &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('email'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-3">
                 <input type="text" name="mail_address"  class="form-control"  id="mail_address">
                 <div id="emailInfo" align="left" style="color:red"></div><?php echo form_error("mail_address"); ?>
@@ -52,7 +50,59 @@
         </div>
 
         <div class="form-group">
-            <label class="col-sm-1 control-label">&nbsp;</label>
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('language'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
+            <div class="col-lg-3">
+                <label class="radio-inline">
+                    <input name="language" value="1" type="radio">
+                    <?php echo $this->lang->line('english'); ?>
+                </label>
+                <label class="radio-inline">
+                    <input name="language" value="2" type="radio">
+                    <?php echo $this->lang->line('gujarati'); ?>
+                </label>
+            </div>				
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('old') . ' ' . $this->lang->line('avtar'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
+            <div class="col-lg-3">
+                <img src="<?php echo base_url() . 'assets/admin_images/' . $session_data['session_admin_avtar']; ?>" class="col-lg-6 img-thumbnail"/>
+            </div>				
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('new') . ' ' . $this->lang->line('avtar'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
+            <div class="col-lg-3">
+                <input type="file" name="admin_image"  class="file-input" id="admin_image">
+                <div id="imageInfo" align="left" style="color:red"></div><?php echo form_error("admin_image"); ?>
+            </div>				
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('new') . ' ' . $this->lang->line('password'); ?> &nbsp;:&nbsp;&nbsp; </label>
+            <div class="col-lg-3">
+                <input type="password" name="new_password" class="form-control" id="password">
+                <?php echo form_error("new_password"); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('confirm') . ' ' . $this->lang->line('password'); ?> &nbsp;:&nbsp;&nbsp; </label>
+            <div class="col-lg-3">
+                <input type="password" name="confirm_password" class="form-control" id="password">
+                <?php echo form_error("confirm_password"); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-lg-3">
+                <strong><span class="text-danger">* <?php echo $this->lang->line('marked_filed_compulsory'); ?> </span></strong>
+            </div>            
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
             <div class="col-lg-3">
                 <input name="submit" type="submit" value="Update" class="btn btn-default"  />
                 <a href="<?php echo base_url() . 'admin/dashboard'; ?>">

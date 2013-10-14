@@ -83,7 +83,7 @@ class admin_aunthenticate_model extends CI_Model {
                 'session_admin_id' => $check_data[0]->adminid,
                 'session_admin_name' => $check_data[0]->username,
                 'session_admin_email' => $check_data[0]->email,
-                'session_admin_language' => 1,
+                'session_admin_language' => 2,
                 'session_last_login_details' => $check_data[0]->last_login_details,
                 'session_admin_avtar' => $check_data[0]->avtar,
                 'admin_logged_in' => true

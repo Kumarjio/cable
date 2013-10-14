@@ -7,12 +7,18 @@ class profile extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        
+
         $this->load->library('layout');
-        $this->layout->setPageTitle('Admin profile');
+        Lanugage_Change::setLanguage();
     }
 
     function index() {
+        $this->layout->setPageTitle('Admin profile');
+        $this->layout->view('admin/profile/edit_profile');
+    }
+
+    function editProfileListener() {
+        $this->layout->setPageTitle('update profile');
         $this->layout->view('admin/profile/edit_profile');
     }
 

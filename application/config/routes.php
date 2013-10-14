@@ -51,6 +51,7 @@ $route['admin/dashboard'] = "admin/dashboard/index";
 
 //Admin Profile
 $route['admin/proflie'] = "admin/profile/index";
+$route['admin/proflie/update'] = "admin/profile/editProfileListener";
 
 
 /* End of file routes.php */
