@@ -1798,6 +1798,7 @@ textarea.input-lg {
 @media (min-width: 768px) {
     .form-horizontal .control-label {
         text-align: right;
+        margin-right: 7px;
     }
 }
 .btn {
