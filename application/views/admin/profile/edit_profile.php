@@ -4,10 +4,12 @@
         $("#editAdminDetails").validate({
             rules: {
                 name:{required:true},
-                mail_address:{required:true}
+                mail_address:{required:true},
+                language:{required:true}
             },messages:{
                 name:{required:'* Name is reqired'},
-                mail_address:{required:'* Email is reqired'}
+                mail_address:{required:'* Email is reqired'},
+                language:{required:'* language is reqired'}
             }
         });
     });
@@ -36,7 +38,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label"><?php echo $this->lang->line('name'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-3">
-                <input type="text" name="name" class="form-control" id="name">
+                <input type="text" name="name" class="form-control" id="name" value="<?php echo set_value('name') != '' ? set_value('name') : $admin_details[0]->username; ?>">
                 <?php echo form_error("name"); ?>
             </div>
         </div>
@@ -44,7 +46,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label"><?php echo $this->lang->line('email'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-3">
-                <input type="text" name="mail_address"  class="form-control"  id="mail_address">
+                <input type="text" name="mail_address"  class="form-control"  id="mail_address" value="<?php echo set_value('mail_address') != '' ? set_value('mail_address') : $admin_details[0]->email; ?>">
                 <div id="emailInfo" align="left" style="color:red"></div><?php echo form_error("mail_address"); ?>
             </div>				
         </div>
@@ -53,11 +55,11 @@
             <label class="col-sm-2 control-label"><?php echo $this->lang->line('language'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-3">
                 <label class="radio-inline">
-                    <input name="language" value="1" type="radio">
+                    <input name="language" value="1" type="radio" <?php echo $admin_details[0]->language == 1 ? 'checked=checked': ''; ?>>
                     <?php echo $this->lang->line('english'); ?>
                 </label>
                 <label class="radio-inline">
-                    <input name="language" value="2" type="radio">
+                    <input name="language" value="2" type="radio" <?php echo $admin_details[0]->language == 2 ? 'checked=checked': ''; ?>>
                     <?php echo $this->lang->line('gujarati'); ?>
                 </label>
             </div>				
@@ -73,7 +75,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label"><?php echo $this->lang->line('new') . ' ' . $this->lang->line('avtar'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-3">
-                <input type="file" name="admin_image"  class="file-input" id="admin_image">
+                <input type="file" name="admin_image"  class="file-input" id="admin_image" autocomplete>
                 <div id="imageInfo" align="left" style="color:red"></div><?php echo form_error("admin_image"); ?>
             </div>				
         </div>
