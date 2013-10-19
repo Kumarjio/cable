@@ -65,7 +65,7 @@
             </div>
 
         </div>
-        
+        <script src="//code.jquery.com/jquery.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
     </body>
 </html>
