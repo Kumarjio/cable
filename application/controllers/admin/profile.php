@@ -44,7 +44,7 @@ class profile extends CI_Controller {
             $obj->language = $this->input->post('language');
 
             if ($this->input->post('new_password') != '') {
-                $obj->new_password = md5($this->input->post('new_password'));
+                $obj->password = md5($this->input->post('new_password'));
             }
             $session = $this->session->userdata('admin_details');
             $obj->adminid = $session['session_admin_id'];

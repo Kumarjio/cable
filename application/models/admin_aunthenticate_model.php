@@ -62,11 +62,11 @@ class admin_aunthenticate_model extends CI_Model {
         if ($this->email != '')
             $arr['email'] = $this->email;
 
-        if ($this->language != '')
-            $arr['password'] = $this->language;
+        if ($this->password != '')
+            $arr['password'] = $this->password;
 
-        if ($this->language != '')
-            $arr['avtar'] = $this->language;
+        if ($this->avtar != '')
+            $arr['avtar'] = $this->avtar;
 
         if ($this->language != '')
             $arr['language'] = $this->language;
