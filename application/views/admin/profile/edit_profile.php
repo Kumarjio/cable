@@ -22,14 +22,14 @@
     <?php $session_data = $this->session->userdata('admin_details'); ?>
     <?php if ($this->session->flashdata('error') != '') { ?>
         <div class="alert alert-danger">
-            <a class="close" data-dismiss="alert" href="#">x</a>
+            <a class="close" data-dismiss="alert" href="<?php echo current_url(); ?>">x</a>
             <strong><?php echo $this->session->flashdata('error'); ?></strong>
         </div>
     <?php } ?>
 
     <?php if ($this->session->flashdata('success') != '') { ?>
         <div class="alert alert-success">
-            <a class="close" data-dismiss="alert" href="#">x</a>
+            <a class="close" data-dismiss="alert" href="<?php echo current_url(); ?>">x</a>
             <strong><?php echo $this->session->flashdata('success'); ?></strong>
         </div>
     <?php } ?>
@@ -55,11 +55,11 @@
             <label class="col-sm-2 control-label"><?php echo $this->lang->line('language'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-3">
                 <label class="radio-inline">
-                    <input name="language" value="1" type="radio" <?php echo $admin_details[0]->language == 1 ? 'checked=checked': ''; ?>>
+                    <input name="language" value="1" type="radio" <?php echo $admin_details[0]->language == 1 ? 'checked=checked' : ''; ?>>
                     <?php echo $this->lang->line('english'); ?>
                 </label>
                 <label class="radio-inline">
-                    <input name="language" value="2" type="radio" <?php echo $admin_details[0]->language == 2 ? 'checked=checked': ''; ?>>
+                    <input name="language" value="2" type="radio" <?php echo $admin_details[0]->language == 2 ? 'checked=checked' : ''; ?>>
                     <?php echo $this->lang->line('gujarati'); ?>
                 </label>
             </div>				
@@ -73,7 +73,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label"><?php echo $this->lang->line('new') . ' ' . $this->lang->line('avtar'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
+            <label class="col-sm-2 control-label"><?php echo $this->lang->line('new') . ' ' . $this->lang->line('avtar'); ?> &nbsp;:&nbsp;&nbsp;</label>
             <div class="col-lg-3">
                 <input type="file" name="admin_image"  class="file-input" id="admin_image" autocomplete>
                 <div id="imageInfo" align="left" style="color:red"></div><?php echo form_error("admin_image"); ?>

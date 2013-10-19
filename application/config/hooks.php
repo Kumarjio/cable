@@ -13,5 +13,12 @@ if (!defined('BASEPATH'))
   |
  */
 
+$hook['pre_controller'][] = array(
+    'class' => 'admin_validation',
+    'function' => 'checkLogin',
+    'filename' => 'admin_validation.php',
+    'filepath' => 'hooks/'
+);
+
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

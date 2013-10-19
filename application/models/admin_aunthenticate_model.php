@@ -52,16 +52,43 @@ class admin_aunthenticate_model extends CI_Model {
 
     public function toArray() {
         $arr = array();
-        $arr['adminid'] = $this->adminid;
-        $arr['username'] = $this->username;
-        $arr['email'] = $this->email;
-        $arr['password'] = $this->password;
-        $arr['avtar'] = $this->avtar;
-        $arr['language'] = $this->language;
-        $arr['last_login_details'] = $this->last_login_details;
-        $arr['created_datetime'] = $this->created_datetime;
-        $arr['modify_datetime'] = $this->modify_datetime;
+
+        if ($this->adminid != '')
+            $arr['adminid'] = $this->adminid;
+
+        if ($this->username != '')
+            $arr['username'] = $this->username;
+
+        if ($this->email != '')
+            $arr['email'] = $this->email;
+
+        if ($this->language != '')
+            $arr['password'] = $this->language;
+
+        if ($this->language != '')
+            $arr['avtar'] = $this->language;
+
+        if ($this->language != '')
+            $arr['language'] = $this->language;
+
+        if ($this->last_login_details != '')
+            $arr['last_login_details'] = $this->last_login_details;
+
+        if ($this->created_datetime != '')
+            $arr['created_datetime'] = $this->created_datetime;
+
+        if ($this->modify_datetime != '')
+            $arr['modify_datetime'] = $this->modify_datetime;
+
         return $arr;
+    }
+
+    function updateData() {
+        $array = $this->toArray();
+        unset($array['adminid']);
+        $this->db->where('adminid', $this->adminid);
+        $this->db->update($this->table_name, $array);
+        return TRUE;
     }
 
     function getWhere($where) {
