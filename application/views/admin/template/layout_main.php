@@ -15,8 +15,9 @@
           <script src="<?php echo JS_URL; ?>html5shiv.js"></script>
           <script src="<?php echo JS_URL; ?>respond.min.js"></script>
         <![endif]-->
-
+        <script src="//code.jquery.com/jquery.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
+
     </head>
     <body>
         <?php $session_data = $this->session->userdata('admin_details'); ?>
@@ -65,7 +66,6 @@
             </div>
 
         </div>
-        <script src="//code.jquery.com/jquery.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
     </body>
 </html>
