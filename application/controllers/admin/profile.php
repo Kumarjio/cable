@@ -47,7 +47,7 @@ class profile extends CI_Controller {
                 $upload_status = $this->do_upload('admin_image');
                 if (isset($upload_status['upload_data'])) {
                     if ($upload_status['upload_data']['file_name'] != '') {
-                        $old_location = $admin_details[0]->userimage;
+                        $old_location = $admin_details[0]->avtar;
                         if ($old_location != null && $old_location != 'no_image.png') {
                             $full_path_of_old = './assets/admin_images/' . $old_location;
                             $path_to_be_removed = substr($full_path_of_old, 2);
@@ -99,7 +99,7 @@ class profile extends CI_Controller {
                 }
 
                 $this->session->set_flashdata('success', 'Update the Data Sucessfully');
-                redirect(base_url() . 'admin/profile', 'refresh');
+               redirect(base_url() . 'admin/profile', 'refresh');
             } else {
                 $this->index($status);
             }

@@ -68,7 +68,7 @@
         <div class="form-group">
             <label class="col-sm-2 col-xs-6 control-label"><?php echo $this->lang->line('old') . ' ' . $this->lang->line('avtar'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-4 col-sm-4 col-xs-6">
-                <img src="<?php echo base_url() . 'assets/admin_images/large_' . $session_data['session_admin_avtar']; ?>" class="col-lg-6 img-thumbnail"/>
+                <img src="<?php echo base_url() . 'assets/admin_images/large_' . $admin_details[0]->avtar; ?>" class="col-lg-6 img-thumbnail"/>
             </div>				
         </div>
 
