@@ -7,14 +7,12 @@ class profile extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-
-        $this->load->library('layout');
-        $this->load->model('admin_aunthenticate_model');
         Lanugage_Change::setLanguage();
+        $this->load->model('admin_aunthenticate_model');
+        $this->layout->setField('page_title', $this->lang->line('admin_profile_page_title'));
     }
 
     function index($image_error = null) {
-        $this->layout->setPageTitle('Admin profile');
         $obj = new admin_aunthenticate_model();
         $session = $this->session->userdata('admin_details');
         $data['admin_details'] = $obj->getWhere(array('email' => $session['session_admin_email']));
@@ -23,7 +21,6 @@ class profile extends CI_Controller {
     }
 
     function editProfileListener() {
-        $this->layout->setPageTitle('update profile');
         $this->form_validation->set_rules('name', 'Username', 'trim|required');
         $this->form_validation->set_rules('mail_address', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('language', 'Language', 'trim|required');
@@ -81,6 +78,7 @@ class profile extends CI_Controller {
                 }
 
                 $obj->adminid = $session['session_admin_id'];
+                $obj->modify_datetime = get_current_date_time()->get_date_time_for_db();
                 $obj->updateData();
 
                 $check_data = $obj->getWhere(array('adminid' => $session['session_admin_id']));
@@ -98,8 +96,8 @@ class profile extends CI_Controller {
                     $this->session->set_userdata($session);
                 }
 
-                $this->session->set_flashdata('success', 'Update the Data Sucessfully');
-               redirect(base_url() . 'admin/profile', 'refresh');
+                // $this->session->set_flashdata('success', 'Update the Data Sucessfully');
+                redirect(base_url() . 'admin/profile', 'refresh');
             } else {
                 $this->index($status);
             }

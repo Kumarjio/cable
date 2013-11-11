@@ -14,3 +14,12 @@
 .file-input{
     padding: 5px 0 0;
 }
+
+.icon-trash{display:inline-block; height:26px; width:26px; background:url('../img/icons-delete.png') no-repeat -26px 0px; transition:ease-in-out .2s; -moz-transition:ease-in-out .2s; -o-transition:ease-in-out .2s; }
+.icon-trash:hover{background:url('../img/icons-delete.png') no-repeat 0px 0px;}
+
+.add_button {
+    margin: 0px 0px 15px;
+}
+
+.form-horizontal .form-group .error {color:red;}

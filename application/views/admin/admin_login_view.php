@@ -3,14 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>S C STAR CABLE</title>
-        <!-- Bootstrap -->
-        <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet" media="screen">
+        <link href="<?php echo CSS_URL; ?>bootstrap.css" rel="stylesheet" media="screen">
+        <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet" media="screen">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-          <script src="<?php echo base_url(); ?>assets/js/html5shiv.js"></script>
-          <script src="<?php echo base_url(); ?>assets/js/respond.min.js"></script>
+          <script src="<?php echo JS_URL; ?>html5shiv.js"></script>
+          <script src="<?php echo JS_URL; ?>respond.min.js"></script>
         <![endif]-->
     </head>
     <body>
@@ -33,7 +32,7 @@
                     </div>
                 <?php } ?>
 
-                <form action="<?php echo base_url() . 'admin/validateadmin'; ?>" method="post" class="form">
+                <form action="<?php echo ADMIN_BASE_URL . 'validateadmin'; ?>" method="post" class="form">
                     <div class="form-group">
                         <input type="email" name="admin_mail_address" value="<?php echo set_value('admin_mail_address'); ?>" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="E-Mail Address"/>
                         <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-danger"><?php echo form_error('admin_mail_address'); ?></span>
@@ -49,7 +48,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="<?php echo base_url() . 'admin/forgot_password'; ?>"><button type="button" class="btn-sm btn-inverse col-xs-12 col-sm-12 col-md-12 col-lg-12">Forgot Password ?</button></a>
+                        <a href="<?php echo ADMIN_BASE_URL . 'forgot_password'; ?>"><button type="button" class="btn-sm btn-inverse col-xs-12 col-sm-12 col-md-12 col-lg-12">Forgot Password ?</button></a>
                     </div>
                 </form>
             </div>

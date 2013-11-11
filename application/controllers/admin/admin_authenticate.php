@@ -14,7 +14,12 @@ class admin_authenticate extends CI_Controller {
 // __construct
 
     function index() {
-        $this->load->view('admin/admin_login_view');
+        $session = $this->session->userdata('admin_details');
+        if (empty($session)) {
+            $this->load->view('admin/admin_login_view');
+        } else {
+            $this->layout->view('admin/dashboard/view');
+        }
     }
 
     function login() {

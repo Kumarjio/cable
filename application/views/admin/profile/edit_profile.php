@@ -34,7 +34,7 @@
         </div>
     <?php } ?>
 
-    <form action="<?php echo base_url() . 'admin/proflie/update'; ?>" method="post" class="form-horizontal" id="editAdminDetails" enctype="multipart/form-data">       
+    <form action="<?php echo ADMIN_BASE_URL . 'proflie/update'; ?>" method="post" class="form-horizontal" id="editAdminDetails" enctype="multipart/form-data">       
         <div class="form-group">
             <label class="col-sm-2 col-xs-6 control-label"><?php echo $this->lang->line('name'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-4 col-sm-4 col-xs-6">
@@ -68,7 +68,7 @@
         <div class="form-group">
             <label class="col-sm-2 col-xs-6 control-label"><?php echo $this->lang->line('old') . ' ' . $this->lang->line('avtar'); ?> &nbsp;:&nbsp;<span class="text-danger">*</span> </label>
             <div class="col-lg-4 col-sm-4 col-xs-6">
-                <img src="<?php echo base_url() . 'assets/admin_images/large_' . $admin_details[0]->avtar; ?>" class="col-lg-6 img-thumbnail"/>
+                <img src="<?php echo ASSETS_URL . 'admin_images/large_' . $session_data['session_admin_avtar']; ?>" class="col-lg-6 img-thumbnail"/>
             </div>				
         </div>
 
@@ -87,7 +87,7 @@
         <div class="form-group">
             <label class="col-sm-2 col-xs-6 control-label"><?php echo $this->lang->line('new') . ' ' . $this->lang->line('password'); ?> &nbsp;:&nbsp;&nbsp; </label>
             <div class="col-lg-4 col-sm-4 col-xs-6">
-                <input type="password" name="new_password" class="form-control" id="password">
+                <input type="password" name="new_password" class="form-control" id="password" autocomplete="off">
                 <?php echo form_error("new_password"); ?>
             </div>
         </div>
@@ -95,7 +95,7 @@
         <div class="form-group">
             <label class="col-sm-2 col-xs-6 control-label"><?php echo $this->lang->line('confirm') . ' ' . $this->lang->line('password'); ?> &nbsp;:&nbsp;&nbsp; </label>
             <div class="col-lg-4 col-sm-4 col-xs-6">
-                <input type="password" name="confirm_password" class="form-control" id="password">
+                <input type="password" name="confirm_password" class="form-control" id="password" autocomplete="off">
                 <?php echo form_error("confirm_password"); ?>
             </div>
         </div>
@@ -111,7 +111,7 @@
             <label class="col-sm-2 col-xs-6 control-label">&nbsp;</label>
             <div class="col-lg-4 col-sm-4 col-xs-6">
                 <input name="submit" type="submit" value="Update" class="btn btn-default"  />
-                <a href="<?php echo base_url() . 'admin/dashboard'; ?>">
+                <a href="<?php echo ADMIN_BASE_URL . 'dashboard'; ?>">
                     <input type="button" value="Cancel" class="btn btn-default" />
                 </a>
             </div>            
