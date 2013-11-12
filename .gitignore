@@ -1,4 +1,6 @@
 /nbproject/
+/application/config/config.php
+/application/config/database.php
 /assets/admin_images/
 /upload_to_ftp.bat
 /git-ftp.py
