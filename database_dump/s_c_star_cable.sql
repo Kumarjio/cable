@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.2.0.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 31, 2004 at 07:56 PM
--- Server version: 5.5.8
--- PHP Version: 5.3.5
+-- Generation Time: Nov 19, 2013 at 11:18 PM
+-- Server version: 5.1.37
+-- PHP Version: 5.3.0
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `sc_admin` (
 --
 
 INSERT INTO `sc_admin` (`adminid`, `username`, `email`, `password`, `avtar`, `language`, `last_login_details`, `created_datetime`, `modify_datetime`) VALUES
-('SCADMIN0001', 'Soyab Rana', 'ranasoyab@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '273e59f3f638eb30c532beba210eb0e9.jpg', 1, '2005-01-01 00:02:14', '2013-10-10 22:07:02', '2013-11-02 22:56:05'),
+('SCADMIN0001', 'Soyab Rana', 'ranasoyab@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '273e59f3f638eb30c532beba210eb0e9.jpg', 1, '2013-11-20 02:20:16', '2013-10-10 22:07:02', '2013-11-02 22:56:05'),
 ('SCADMIN0002', 'Chandubhai Rana', 'ranachandubhai@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'no-image.png', 1, '2005-01-01 00:43:23', '2013-10-10 22:07:40', '2013-10-10 22:07:44');
 
 -- --------------------------------------------------------
@@ -81,6 +81,30 @@ CREATE TABLE IF NOT EXISTS `sc_customer` (
 
 INSERT INTO `sc_customer` (`customerid`, `firstname`, `middlename`, `lastname`, `email`, `password`, `housenumber`, `society`, `date_of_reg`, `mobileno`, `avtar`, `language`, `setup_box_id`, `monthly_rate`, `created_id`, `created_datetime`, `modify_id`, `modify_datetime`) VALUES
 ('SC_C_0002', 'Chandubhai', 'R', 'Rana', 'ranachandubhai@gmail.com', NULL, '770', 'SC_SO_0001', '2013-12-11', '9974122333', 'no-image.png', 1, 'SC_SB_0002', 250, 'SCADMIN0001', '2005-01-01 01:23:32', 'SCADMIN0001', '2005-01-01 01:23:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sc_monthly_payment`
+--
+
+CREATE TABLE IF NOT EXISTS `sc_monthly_payment` (
+  `monthly_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` varchar(11) NOT NULL,
+  `payment_year` int(4) NOT NULL,
+  `payment_month` int(2) NOT NULL,
+  `amount` int(5) NOT NULL,
+  `created_id` varchar(11) NOT NULL,
+  `created_datetime` datetime NOT NULL,
+  `modify_id` varchar(11) NOT NULL,
+  `modify_datetime` datetime NOT NULL,
+  PRIMARY KEY (`monthly_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `sc_monthly_payment`
+--
+
 
 -- --------------------------------------------------------
 
@@ -154,3 +178,7 @@ ALTER TABLE `sc_customer`
 ALTER TABLE `sc_society`
   ADD CONSTRAINT `sc_society_ibfk_1` FOREIGN KEY (`created_id`) REFERENCES `sc_admin` (`adminid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `sc_society_ibfk_2` FOREIGN KEY (`modify_id`) REFERENCES `sc_admin` (`adminid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

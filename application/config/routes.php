@@ -81,6 +81,8 @@ $route['admin/customer/delete/(:any)'] = "admin/maintain_customer/deleteListener
 $route['admin/proflie'] = "admin/profile/index";
 $route['admin/proflie/update'] = "admin/profile/editProfileListener";
 
+//Admin Monthly Customer payment
+$route['admin/monthly/(:num)/(:num)'] = "admin/maintain_monthly_payment/index/$1/$2";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

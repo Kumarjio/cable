@@ -4,6 +4,7 @@ $lang['menu_setup_box'] = 'Setup Box';
 $lang['menu_change_details'] = 'Change Details';
 $lang['menu_society'] = 'Socitey';
 $lang['menu_customer'] = 'Customer';
+$lang['menu_monthly'] = 'Monthly Payment';
 
 //Pagetitle
 $lang['admin_dashobard_page_title'] = 'Dashboard';
@@ -11,6 +12,7 @@ $lang['admin_setup_box_page_title'] = 'Manage Setup Box';
 $lang['admin_profile_page_title'] = 'Manage Profile';
 $lang['admin_society_page_title'] = 'Manage Socitey';
 $lang['admin_customer_page_title'] = 'Manage Customer';
+$lang['admin_monthly_page_title'] = 'Manage Monthly Payment';
 
 $lang['logout'] = 'Logout';
 $lang['admin_login'] = 'Administrator Login';

@@ -58,6 +58,11 @@
                             </a>
                         </li>
                         <li>
+                            <a href="<?php echo ADMIN_BASE_URL . 'monthly/' . get_current_date_time()->year . '/' . get_current_date_time()->month; ?>">
+                                <?php echo $this->lang->line('menu_monthly'); ?>
+                            </a>
+                        </li>
+                        <li>
                             <a href="<?php echo ADMIN_BASE_URL . 'setup_box'; ?>">
                                 <?php echo $this->lang->line('menu_setup_box'); ?>
                             </a>
@@ -85,9 +90,7 @@
             </div>
 
             <div class="container">
-                <div class="row">
-                    <?php echo $content_for_layout; ?>    
-                </div>
+                <?php echo $content_for_layout; ?>    
             </div>
 
             <div class="mar-10"></div>
