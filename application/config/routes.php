@@ -83,6 +83,7 @@ $route['admin/proflie/update'] = "admin/profile/editProfileListener";
 
 //Admin Monthly Customer payment
 $route['admin/monthly/(:num)/(:num)'] = "admin/maintain_monthly_payment/index/$1/$2";
+$route['admin/monthly/getJson/(:num)/(:num)'] = "admin/maintain_monthly_payment/getJson/$1/$2";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

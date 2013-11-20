@@ -151,6 +151,21 @@ Class sc_monthly_payment_model extends CI_model {
         }
     }
 
+    function getDistinctYears() {
+        $this->db->select('DISTINCT(payment_year) as year');
+        $this->db->from($this->table_name);
+        $this->db->order_by('payment_year', 'desc');
+        $res = $this->db->get();
+        if (count($res->result()) > 0) {
+            return $res->result();
+        } else {
+            $object = new stdClass();
+            $object->year = get_current_date_time()->year;
+            $res_1[] = $object;
+            return $res_1;
+        }
+    }
+
 }
 
 ?>

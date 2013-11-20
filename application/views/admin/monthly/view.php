@@ -1,16 +1,54 @@
 <script type="text/javascript" >
     $(document).ready(function() {
-        $('#list_setup_box').dataTable( {
+        $('#list_monthly_payment').dataTable( {
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "bProcessing": true,
             'iDisplayLength': 10,
             "aoColumns":[
-                {"sClass":""},{"sClass":""}
+                {"sClass":"align_left"},{"sClass":"align_center"},
+                {"sClass":"align_center"},{"sClass":"align_center"},
+                {"sClass":"align_center"}
             ],
-            "sAjaxSource": "<?php echo ADMIN_BASE_URL . "monthly/getJson/"; ?>" + document.getElementById("memorial_member_list").value +"/" + document.getElementById("memorial_member_list").value
+            "sAjaxSource": "<?php echo ADMIN_BASE_URL . "monthly/getJson/"; ?>" +  document.getElementById("month").value + "/"+  document.getElementById("year").value
         } );
     } );
+    
+    function change_month(){
+        var oTable1 = $('#list_monthly_payment').dataTable();
+        oTable1.fnDestroy();
+        
+        var oTable = $('#list_monthly_payment').dataTable( {
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "bProcessing": true,
+            'iDisplayLength': 10,
+            "aoColumns":[
+                {"sClass":"align_left"},{"sClass":"align_center"},
+                {"sClass":"align_center"},{"sClass":"align_center"},
+                {"sClass":"align_center"}
+            ],
+            "sAjaxSource": "<?php echo ADMIN_BASE_URL . "monthly/getJson/"; ?>" +  document.getElementById("month").value + "/"+  document.getElementById("year").value
+        } );
+    }
+    
+    function change_year(){
+        var oTable1 = $('#list_monthly_payment').dataTable();
+        oTable1.fnDestroy();
+        
+        var oTable = $('#list_invoice').dataTable( {
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "bProcessing": true,
+            'iDisplayLength': 10,
+            "aoColumns":[
+                {"sClass":"align_left"},{"sClass":"align_center"},
+                {"sClass":"align_center"},{"sClass":"align_center"},
+                {"sClass":"align_center"}
+            ],
+            "sAjaxSource": "<?php echo ADMIN_BASE_URL . "monthly/getJson/"; ?>" +  document.getElementById("month").value + "/"+  document.getElementById("year").value
+        } );
+    }
     
     function deleteRow(ele){
         var current_id = $(ele).attr('id');
@@ -57,18 +95,83 @@
         </a>
     </div>
 
-    <div class="add_button pull-right form-horizontal col-md-6">
+    <div class="form-horizontal col-md-6">
         <div class="form-group">
-            <div class="col-md-3">
-                <select id="pay_year" name="pay_year" class="form-control">
-                    <option value="1">Option one</option>
-                    <option value="2">Option two</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select id="pay_month" name="pay_month" class="form-control">
-                    <option value="1">Option one</option>
-                    <option value="2">Option two</option>
+            <?php if (isset($years) && is_array($years)) { ?>
+            <div class="col-md-3 mar-lt-10 pull-right ">
+                    <select name="year" id="year" onchange="change_year()" class="form-control">
+                        <?php foreach ($years as $year) { ?>
+                            <option value="<?php echo $year->year; ?>" <?php
+                    if ($sel_year == $year->year) {
+                        echo 'selected=selected';
+                    }
+                            ?>><?php echo $year->year; ?></option>
+                                <?php } ?>
+                    </select>
+                </div>
+            <?php } ?>
+            <div class="col-md-3 pull-right">
+                <select name="month" id="month" onchange="change_month()" class="form-control">
+                    <option value="1"  <?php
+            if (isset($sel_month) && $sel_month == 1) {
+                echo 'selected=selected';
+            }
+            ?>>January</option>
+                    <option value="2"  <?php
+                            if (isset($sel_month) && $sel_month == 2) {
+                                echo 'selected=selected';
+                            }
+            ?>>February</option>
+                    <option value="3"  <?php
+                            if (isset($sel_month) && $sel_month == 3) {
+                                echo 'selected=selected';
+                            }
+            ?>>March</option>
+                    <option value="4"  <?php
+                            if (isset($sel_month) && $sel_month == 4) {
+                                echo 'selected=selected';
+                            }
+            ?>>April</option>
+                    <option value="5"  <?php
+                            if (isset($sel_month) && $sel_month == 5) {
+                                echo 'selected=selected';
+                            }
+            ?>>May</option>
+                    <option value="6"  <?php
+                            if (isset($sel_month) && $sel_month == 6) {
+                                echo 'selected=selected';
+                            }
+            ?>>June</option>
+                    <option value="7"  <?php
+                            if (isset($sel_month) && $sel_month == 7) {
+                                echo 'selected=selected';
+                            }
+            ?>>July</option>
+                    <option value="8"  <?php
+                            if (isset($sel_month) && $sel_month == 8) {
+                                echo 'selected=selected';
+                            }
+            ?>>August</option>
+                    <option value="9"  <?php
+                            if (isset($sel_month) && $sel_month == 9) {
+                                echo 'selected=selected';
+                            }
+            ?>>September</option>
+                    <option value="10" <?php
+                            if (isset($sel_month) && $sel_month == 10) {
+                                echo 'selected=selected';
+                            }
+            ?>>October</option>
+                    <option value="11" <?php
+                            if (isset($sel_month) && $sel_month == 11) {
+                                echo 'selected=selected';
+                            }
+            ?>>November</option>
+                    <option value="12" <?php
+                            if (isset($sel_month) && $sel_month == 12) {
+                                echo 'selected=selected';
+                            }
+            ?>>December</option>
                 </select>
             </div>
         </div>
@@ -89,10 +192,13 @@
                 }
                 ?>
             <?php } ?>
-            <table class="display" id="list_setup_box" cellpadding="0" cellspacing="0" border="0">
+            <table class="display" id="list_monthly_payment" cellpadding="0" cellspacing="0" border="0">
                 <thead>
                     <tr align="left">
                         <th><?php echo $this->lang->line('name'); ?></th>
+                        <th><?php echo $this->lang->line('amount'); ?></th>
+                        <th><?php echo $this->lang->line('date_time'); ?></th>
+                        <th><?php echo $this->lang->line('by'); ?></th>
                         <th width="25">&nbsp;</th>
                     </tr>
                 </thead>
