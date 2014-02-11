@@ -3,18 +3,17 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-Class sc_monthly_payment_model extends CI_model {
+Class sc_connection_rate_model extends CI_model {
 
-    public $monthly_id;
+    public $cr_id;
     public $customer_id;
-    public $payment_year;
-    public $payment_month;
-    public $amount;
+    public $rate_year;
+    public $rate;
     public $created_id;
     public $created_datetime;
     public $modify_id;
     public $modify_datetime;
-    private $table_name = 'sc_monthly_payment';
+    private $table_name = 'sc_connection_rate';
 
     function __construct() {
         parent::__construct();
@@ -26,35 +25,34 @@ Class sc_monthly_payment_model extends CI_model {
     }
 
     function convertObject($old) {
-        $new = new sc_monthly_payment_model();
-        $new->monthly_id = $old->monthly_id;
+        $new = new sc_connection_rate_model();
+        $new->cr_id = $old->cr_id;
         $new->customer_id = $old->customer_id;
-        $new->payment_year = $old->payment_year;
-        $new->payment_month = $old->payment_month;
-        $new->amount = $old->amount;
+        $new->rate_year = $old->rate_year;
+        $new->rate = $old->rate;       
         $new->created_id = $old->created_id;
         $new->created_datetime = $old->created_datetime;
         $new->modify_id = $old->modify_id;
-        $new->modify_datetime = $old->modify_datetime;
+        $new->modify_datetime= $old->modify_datetime;
         return $new;
     }
 
     function toArray() {
         $arr = array();
-        if ($this->monthly_id != '')
-            $arr['monthly_id'] = $this->monthly_id;
-
+        if ($this->cr_id != '')
+            $arr['cr_id'] = $this->cr_id;
+        
         if ($this->customer_id != '')
             $arr['customer_id'] = $this->customer_id;
 
-        if ($this->payment_year != '')
-            $arr['payment_year'] = $this->payment_year;
-
-        if ($this->payment_month != '')
-            $arr['payment_month'] = $this->payment_month;
-
-        if ($this->amount != '')
-            $arr['amount'] = $this->amount;
+        if ($this->cr_id != '')
+            $arr['cr_id'] = $this->cr_id;
+        
+        if ($this->rate_year != '')
+            $arr['rate_year'] = $this->rate_year;
+        
+        if ($this->rate != '')
+            $arr['rate'] = $this->rate;
 
         if ($this->created_id != '')
             $arr['created_id'] = $this->created_id;
@@ -64,7 +62,7 @@ Class sc_monthly_payment_model extends CI_model {
 
         if ($this->modify_id != '')
             $arr['modify_id'] = $this->modify_id;
-
+        
         if ($this->modify_datetime != '')
             $arr['modify_datetime'] = $this->modify_datetime;
 
@@ -77,7 +75,7 @@ Class sc_monthly_payment_model extends CI_model {
         $this->db->from($this->table_name);
         $this->db->where($where);
         if (is_null($orderby)) {
-            $orderby = 'monthly_id';
+            $orderby = 'cr_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc;';
@@ -99,7 +97,7 @@ Class sc_monthly_payment_model extends CI_model {
         $this->db->select(' * ');
         $this->db->from($this->table_name);
         if (is_null($orderby)) {
-            $orderby = 'monthly_id';
+            $orderby = 'cr_id';
         }
         if (is_null($ordertype)) {
             $ordertype = 'desc';
@@ -129,8 +127,8 @@ Class sc_monthly_payment_model extends CI_model {
 
     function updateData() {
         $array = $this->toArray();
-        unset($array['monthly_id']);
-        $this->db->where('monthly_id', $this->monthly_id);
+        unset($array['cr_id']);
+        $this->db->where('cr_id', $this->cr_id);
         $this->db->update($this->table_name, $array);
         $check = $this->db->affected_rows();
         if ($check > 0) {
@@ -141,7 +139,7 @@ Class sc_monthly_payment_model extends CI_model {
     }
 
     function deleteData() {
-        $this->db->where('monthly_id', $this->monthly_id);
+        $this->db->where('cr_id', $this->cr_id);
         $this->db->delete($this->table_name);
         $check = $this->db->affected_rows();
         if ($check > 0) {
@@ -151,27 +149,23 @@ Class sc_monthly_payment_model extends CI_model {
         }
     }
 
-    function getDistinctYears() {
-        $this->db->select('DISTINCT(payment_year) as year');
+    function getYearAmount($no, $year){
+        $this->db->select('rate');
         $this->db->from($this->table_name);
-        $this->db->order_by('payment_year', 'desc');
-        $res = $this->db->get();
-        if (count($res->result()) > 0) {
-            return $res->result();
-        } else {
-            $object = new stdClass();
-            $object->year = get_current_date_time()->year;
-            $res_1[] = $object;
-            return $res_1;
-        }
+        $this->db->where(array('customer_id'=>$no, 'rate_year'=>$year));
+        $res = $this->db->get()->result();
+        if(!empty($res))
+            return $res[0]->rate * 12;
+        else
+            return 0;
     }
-    
-    function getTotalAmountPaid($where){
-        $this->db->select_sum('amount');
+
+    function getCurrentYearAmount($no, $year){
+        $this->db->select('rate');
         $this->db->from($this->table_name);
-        $this->db->where($where);
-       $res = $this->db->get()->result();
-       return (int)$res[0]->amount;
+        $this->db->where(array('customer_id'=>$no, 'rate_year'=>$year));
+        $res = $this->db->get()->result();
+        return $res[0]->rate * (get_current_date_time()->month - 1);
     }
 
 }

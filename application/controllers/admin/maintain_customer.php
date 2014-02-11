@@ -12,6 +12,7 @@ class maintain_customer extends CI_Controller {
         $this->load->model('sc_customer_model');
         $this->load->model('sc_society_model');
         $this->load->model('sc_setupbox_model');
+        $this->load->model('sc_connection_rate_model');
     }
 
     public function index() {
@@ -29,8 +30,8 @@ class maintain_customer extends CI_Controller {
     }
 
     public function addListener() {
-      //  var_dump($_POST);
-       // exit;
+        //  var_dump($_POST);
+        // exit;
         $obj = new sc_customer_model();
         $this->form_validation->set_rules($obj->validationRules());
         if ($this->form_validation->run() == FALSE) {
@@ -43,10 +44,10 @@ class maintain_customer extends CI_Controller {
             $this->form_validation->set_value('mobileno');
             $this->form_validation->set_value('language');
             $this->form_validation->set_value('setup_box_id');
-            $this->form_validation->set_value('monthly_rate');
             $this->add();
         } else {
-            $obj->customerid = $obj->autoIncrementID();
+            $customerid= $obj->autoIncrementID();
+            $obj->customerid = $customerid;
             $obj->firstname = $this->input->post('firstname');
             $obj->middlename = $this->input->post('middlename');
             $obj->lastname = $this->input->post('lastname');
@@ -57,15 +58,24 @@ class maintain_customer extends CI_Controller {
             $obj->mobileno = $this->input->post('mobileno');
             $obj->language = $this->input->post('language');
             $obj->setup_box_id = $this->input->post('setup_box_id');
-            $obj->monthly_rate = $this->input->post('monthly_rate');
 
             $session_data = $this->session->userdata('admin_details');
             $obj->created_id = $session_data['session_admin_id'];
             $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
             $obj->modify_id = $session_data['session_admin_id'];
             $obj->modify_datetime = get_current_date_time()->get_date_time_for_db();
-
             $check = $obj->insertData();
+
+            $obj_rate = new sc_connection_rate_model();
+            $obj_rate->customer_id = $customerid;
+            $obj_rate->rate_year = get_current_date_time()->year;
+            $obj_rate->rate = $this->input->post('monthly_rate');
+            $obj_rate->created_id = $session_data['session_admin_id'];
+            $obj_rate->created_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj_rate->modify_id = $session_data['session_admin_id'];
+            $obj_rate->modify_datetime = get_current_date_time()->get_date_time_for_db();
+            $check = $obj_rate->insertData();
+
             if ($check == true) {
                 $this->session->set_flashdata('success', $this->lang->line('add_success'));
             } else {
@@ -153,6 +163,18 @@ class maintain_customer extends CI_Controller {
             $arra[] = $temp_arr;
         }
         return $arra;
+    }
+
+    function getCustomerAutocomplete() {
+        $res = $this->sc_customer_model->getCustomerDetails($_GET['term']);
+        $customers = array();
+        foreach ($res as $r) {
+            $temp = array();
+            $temp['value'] = $r->customerid;
+            $temp['label'] = $r->firstname .' '. $r->lastname .' (' . $r->housenumber .')';
+            $customers[] = $temp;
+        }
+        echo json_encode($customers);
     }
 
 }

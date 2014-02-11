@@ -18,8 +18,9 @@
           <script src="<?php echo JS_URL; ?>html5shiv.js"></script>
           <script src="<?php echo JS_URL; ?>respond.min.js"></script>
         <![endif]-->
-        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
         <script src="<?php echo JS_URL; ?>jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script src="<?php echo JS_URL; ?>jquery-ui.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.validate.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
         <script src="<?php echo JS_URL; ?>jquery.dataTables.min.js" type="text/javascript"></script>

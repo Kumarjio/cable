@@ -76,6 +76,7 @@ $route['admin/customer/save'] = "admin/maintain_customer/addListener";
 $route['admin/customer/edit/(:any)'] = "admin/maintain_customer/edit/$1";
 $route['admin/customer/update/(:any)'] = "admin/maintain_customer/editListener/$1";
 $route['admin/customer/delete/(:any)'] = "admin/maintain_customer/deleteListener/$1";
+$route['admin/customer/get'] = "admin/maintain_customer/getCustomerAutocomplete";
 
 //Admin Profile
 $route['admin/proflie'] = "admin/profile/index";
@@ -84,6 +85,9 @@ $route['admin/proflie/update'] = "admin/profile/editProfileListener";
 //Admin Monthly Customer payment
 $route['admin/monthly/(:num)/(:num)'] = "admin/maintain_monthly_payment/index/$1/$2";
 $route['admin/monthly/getJson/(:num)/(:num)'] = "admin/maintain_monthly_payment/getJson/$1/$2";
+$route['admin/monthly/view'] = "admin/maintain_monthly_payment/view";
+$route['admin/monthly/check_history/(:any)'] = "admin/maintain_monthly_payment/checkCustomerHistory/$1";
+$route['admin/monthly/save'] = "admin/maintain_monthly_payment/addMonthlyPaymentListener";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

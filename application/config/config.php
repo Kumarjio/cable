@@ -14,9 +14,9 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/Try/cable/';
+$config['base_url']	= 'http://temp_script';
 
-define('ADMIN_BASE_URL', 'http://localhost/Try/cable/admin/');
+define('ADMIN_BASE_URL', 'http://temp_script/admin/');
 define('CSS_URL', 'http://localhost/Try/cable/assets/css/');
 define('JS_URL', 'http://localhost/Try/cable/assets/js/');
 define('ASSETS_URL', 'http://localhost/Try/cable/assets/');

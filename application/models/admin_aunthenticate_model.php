@@ -167,6 +167,13 @@ class admin_aunthenticate_model extends CI_Model {
         return true;
     }
 
+    static function getAdminName($id){
+        $CI =& get_instance();
+        $data = $CI->db->query('select username from sc_admin where adminid=\'' . $id .'\'');
+        $res = $data->result();
+        return $res[0]->username;
+    }
+
 }
 
 ?>

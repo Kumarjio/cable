@@ -200,10 +200,7 @@ Class sc_setupbox_model extends CI_model {
 
     function getNonUsedSetupbox() {
         $objects = array();
-        $this->db->select($this->table_name . '.*');
-        $this->db->from($this->table_name);
-        $this->db->join('sc_customer', $this->table_name . '.setup_box_id!=sc_customer.setup_box_id');
-        $res = $this->db->get();
+        $res = $this->db->query('SELECT * FROM sc_setupbox where setup_box_id not in (select setup_box_id from sc_customer)');
         foreach ($res->result() as $row) {
             $obj = $this->convertObject($row);
             $objects[] = $obj;

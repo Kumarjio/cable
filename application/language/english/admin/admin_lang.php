@@ -97,4 +97,15 @@ $lang['cfa_no'] = 'CFA NO';
 $lang['date_of_purchase'] = 'Date of Purchase';
 $lang['normal'] = 'Normal';
 $lang['hd'] = 'HD';
+
+//Monthly Payment
+$lang['check'] = 'Check';
+$lang['date_time'] = 'Date Time';
+$lang['collect_by'] = 'Collected By';
+$lang['last_year_amount'] = 'Last Year Amount';
+$lang['current_year_amount'] = 'Current Year Amount';
+$lang['previous_amount'] = 'Previous Amount';
+$lang['current_amount'] = 'Current Amount';
+$lang['total_amount'] = 'Total Amount';
+$lang['amount'] = 'Amount';
 ?>

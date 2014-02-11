@@ -18,7 +18,6 @@ Class sc_customer_model extends CI_model {
     public $avtar;
     public $language;
     public $setup_box_id;
-    public $monthly_rate;
     public $created_id;
     public $created_datetime;
     public $modify_id;
@@ -80,11 +79,6 @@ Class sc_customer_model extends CI_model {
                 'field' => 'setup_box_id',
                 'label' => $this->lang->line('setup_box_id'),
                 'rules' => 'required|trim'
-            ),
-            array(
-                'field' => 'monthly_rate',
-                'label' => $this->lang->line('monthly_rate'),
-                'rules' => 'required|trim'
             )
         );
         return $validation_rules;
@@ -105,7 +99,6 @@ Class sc_customer_model extends CI_model {
         $new->avtar = $old->avtar;
         $new->language = $old->language;
         $new->setup_box_id = $old->setup_box_id;
-        $new->monthly_rate = $old->monthly_rate;
         $new->created_id = $old->created_id;
         $new->created_datetime = $old->created_datetime;
         $new->modify_id = $old->modify_id;
@@ -155,9 +148,6 @@ Class sc_customer_model extends CI_model {
 
         if ($this->setup_box_id != '')
             $arr['setup_box_id'] = $this->setup_box_id;
-
-        if ($this->monthly_rate != '')
-            $arr['monthly_rate'] = $this->monthly_rate;
 
         if ($this->created_id != '')
             $arr['created_id'] = $this->created_id;
@@ -224,7 +214,7 @@ Class sc_customer_model extends CI_model {
         $this->db->insert($this->table_name, $array);
         $check = $this->db->affected_rows();
         if ($check > 0) {
-            return TRUE;
+            return $this->db->insert_id();
         } else {
             return FALSE;
         }
@@ -278,6 +268,14 @@ Class sc_customer_model extends CI_model {
         }
 
         return $new_id;
+    }
+    
+    function getCustomerDetails($no){
+        $this->db->select('customerid,firstname,lastname,housenumber');
+        $this->db->from($this->table_name);
+        $this->db->like('housenumber',$no, FALSE);
+        $res = $this->db->get();
+        return $res->result();
     }
 
 }
