@@ -5,6 +5,8 @@ $lang['menu_change_details'] = 'Change Details';
 $lang['menu_society'] = 'Socitey';
 $lang['menu_customer'] = 'Customer';
 $lang['menu_monthly'] = 'Monthly Payment';
+$lang['menu_import_customer'] = 'Import Excel';
+
 
 //Pagetitle
 $lang['admin_dashobard_page_title'] = 'Dashboard';
@@ -20,6 +22,7 @@ $lang['admin_login'] = 'Administrator Login';
 //Common
 $lang['maintain'] = 'Maintain';
 $lang['save'] = 'SAVE';
+$lang['import'] = 'IMPORT';
 $lang['update'] = 'UPDATE';
 $lang['cancel'] = 'CANCEL';
 $lang['edit'] = 'Edit';
@@ -88,6 +91,7 @@ $lang['society'] = 'Society';
 $lang['monthly_rate'] = 'Monthly Rate';
 $lang['date_of_reg'] = 'Date of Registration';
 $lang['setup_box'] = 'Setup Box';
+$lang['excel_file'] = 'Excel File';
 
 //SetupBox
 $lang['model'] = 'Model';

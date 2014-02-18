@@ -13,14 +13,14 @@
 
 <div class="container row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <form action="<?php echo ADMIN_BASE_URL . 'customer/update' ?>" method="post" id="add_customer" class="form-horizontal">
+        <form action="<?php echo ADMIN_BASE_URL . 'customer/update/' . $customer_details->customerid ?>" method="post" id="add_customer" class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-2 col-xs-6 control-label">
                     <?php echo $this->lang->line('firstname'); ?>
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="firstname" required="required" value="<?php echo set_value('firstname'); ?>" class="form-control"/>
+                    <input type="text" name="firstname" required="required" value="<?php echo $customer_details->firstname; ?>" class="form-control"/>
                     <?php echo form_error('firstname'); ?>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <?php echo $this->lang->line('middlename'); ?>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="middlename" value="<?php echo set_value('middlename'); ?>" class="form-control"/>
+                    <input type="text" name="middlename" value="<?php echo $customer_details->middlename; ?>" class="form-control"/>
                     <?php echo form_error('middlename'); ?>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="lastname" required="required" value="<?php echo set_value('lastname'); ?>" class="form-control"/>
+                    <input type="text" name="lastname" required="required" value="<?php echo $customer_details->lastname; ?>" class="form-control"/>
                     <?php echo form_error('lastname'); ?>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="housenumber" required="required" value="<?php echo set_value('housenumber'); ?>" class="form-control"/>
+                    <input type="text" name="housenumber" required="required" value="<?php echo $customer_details->housenumber; ?>" class="form-control"/>
                     <?php echo form_error('housenumber'); ?>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                     <select name="society" required="required" class="form-control">
                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                         <?php foreach ($society_details as $society) { ?>
-                            <option value="<?php echo $society->societyid; ?>"><?php echo $society->name; ?></option>
+                            <option value="<?php echo $society->societyid; ?>" <?php if($customer_details->society == $society->societyid) { echo 'selected="selected"';} ?>><?php echo $society->name; ?></option>
                         <?php } ?>
                     </select>
                     <?php echo form_error('society'); ?>
@@ -78,7 +78,7 @@
                     <?php echo $this->lang->line('email'); ?>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="email" value="<?php echo set_value('email'); ?>" class="form-control"/>
+                    <input type="text" name="email" value="<?php echo $customer_details->email; ?>" class="form-control"/>
                     <?php echo form_error('email'); ?>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="date_of_reg" required="required" value="<?php echo set_value('date_of_reg'); ?>" class="form-control"/>
+                    <input type="text" name="date_of_reg" required="required" value="<?php echo date('d-m-Y', strtotime($customer_details->date_of_reg)); ?>" class="form-control"/>
                     <?php echo form_error('date_of_reg'); ?>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="mobileno" required="required" value="<?php echo set_value('mobileno'); ?>" class="form-control"/>
+                    <input type="text" name="mobileno" required="required" value="<?php echo $customer_details->mobileno; ?>" class="form-control"/>
                     <?php echo form_error('mobileno'); ?>
                 </div>
             </div>
@@ -121,11 +121,11 @@
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
                     <label class="radio-inline">
-                        <input name="language" value="1" type="radio" checked="checked">
+                        <input name="language" value="1" type="radio" <?php if($customer_details->language == '1') { echo 'checked="checked"';} ?>>
                         <?php echo $this->lang->line('english'); ?>
                     </label>
                     <label class="radio-inline">
-                        <input name="language" value="2" type="radio">
+                        <input name="language" value="2" type="radio" <?php if($customer_details->language == '2') { echo 'checked="checked"';} ?>>
                         <?php echo $this->lang->line('gujarati'); ?>
                     </label>
                 </div>				
@@ -139,10 +139,10 @@
                 <div class="col-lg-4 col-sm-4 col-xs-6">
                     <select name="setup_box_id" required="required" class="form-control">
                         <option value=""><?php echo $this->lang->line('select'); ?></option>
-                        <?php foreach ($setupbox_details as $setupbox) { ?>
+                        <option value="<?php echo $current_box_details[0]->setup_box_id; ?>" selected="selected"><?php echo $current_box_details[0]->stb_no; ?></option>
+                        <?php if(count($setupbox_details) >0 ) { foreach ($setupbox_details as $setupbox) { ?>
                             <option value="<?php echo $setupbox->setup_box_id; ?>"><?php echo $setupbox->stb_no; ?></option>
-                        
-                        <?php var_dump($setupbox); } ?>
+                        <?php } } else { echo '<option value="">No box Avaiable</option>'; }?>
                     </select>
                     <?php echo form_error('setup_box_id'); ?>
                 </div>
@@ -154,7 +154,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="monthly_rate" required="required" value="<?php echo set_value('monthly_rate'); ?>" class="form-control"/>
+                    <input type="text" name="monthly_rate"  value="<?php echo set_value('monthly_rate'); ?>" class="form-control"/>
                     <?php echo form_error('monthly_rate'); ?>
                 </div>
             </div>

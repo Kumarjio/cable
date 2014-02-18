@@ -55,6 +55,9 @@
         <a href="<?php echo ADMIN_BASE_URL . 'customer/add'; ?>" class="btn btn-default">
             <?php echo $this->lang->line('add') . ' ' . $this->lang->line('menu_customer'); ?>
         </a>
+        <a href="<?php echo ADMIN_BASE_URL . 'customer/import'; ?>" class="btn btn-default">
+            <?php echo $this->lang->line('menu_import_customer'); ?>
+        </a>
     </div>
     <div class="row">
         <div class="col-md-12">

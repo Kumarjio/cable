@@ -183,15 +183,16 @@ Class sc_setupbox_model extends CI_model {
         $result = $res->result();
 
         if ($res->num_rows > 0) {
-            $last_id = substr($result[0]->setup_box_id, 6);
+            $last_id = (int) substr($result[0]->setup_box_id, 6);
         }
+
         if ($last_id >= 0 && $last_id < 9) {
             $new_id = 'SC_SB_000' . ($last_id + 1);
-        } else if ($last_id > 9 && $last_id < 99) {
+        } else if ($last_id >= 9 && $last_id < 99) {
             $new_id = 'SC_SB_00' . ($last_id + 1);
-        } else if ($last_id > 99 && $last_id < 999) {
+        } else if ($last_id >= 99 && $last_id < 999) {
             $new_id = 'SC_SB_0' . ($last_id + 1);
-        } else if ($last_id > 999 && $last_id <= 9999) {
+        } else if ($last_id >= 999 && $last_id <= 9999) {
             $new_id = 'SC_SB_' . ($last_id + 1);
         }
 

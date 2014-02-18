@@ -36,6 +36,8 @@ class maintain_setup_box extends CI_Controller {
             $this->add();
         } else {
             $obj->setup_box_id = $obj->autoIncrementID();
+            var_dump($obj->setup_box_id);
+            exit;
             $obj->model = $this->input->post('model');
             $obj->stb_no = $this->input->post('stb_no');
             $obj->type = $this->input->post('type');

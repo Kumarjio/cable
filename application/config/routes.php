@@ -77,6 +77,9 @@ $route['admin/customer/edit/(:any)'] = "admin/maintain_customer/edit/$1";
 $route['admin/customer/update/(:any)'] = "admin/maintain_customer/editListener/$1";
 $route['admin/customer/delete/(:any)'] = "admin/maintain_customer/deleteListener/$1";
 $route['admin/customer/get'] = "admin/maintain_customer/getCustomerAutocomplete";
+$route['admin/customer/import'] = "admin/maintain_customer/import_excel_file";
+$route['admin/customer/import_file'] = "admin/maintain_customer/importListener";
+
 
 //Admin Profile
 $route['admin/proflie'] = "admin/profile/index";

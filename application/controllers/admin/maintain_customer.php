@@ -88,6 +88,14 @@ class maintain_customer extends CI_Controller {
     function edit($id) {
         $res = $this->sc_customer_model->getWhere(array('customerid' => $id));
         if (is_array($res) && count($res) == 1) {
+
+            $obj_soc = new sc_society_model();
+            $data['society_details'] = $obj_soc->getAll();
+
+            $obj_setup_box = new sc_setupbox_model();
+            $data['setupbox_details'] = $obj_setup_box->getNonUsedSetupbox();
+            $data['current_box_details'] = $obj_setup_box->getWhere(array('setup_box_id'=>$res[0]->setup_box_id));
+
             $data['customer_details'] = $res[0];
             $this->layout->view('admin/customer/edit_customer', $data);
         } else {
@@ -100,14 +108,18 @@ class maintain_customer extends CI_Controller {
         $res = $this->sc_customer_model->getWhere(array('customerid' => $id));
         if (is_array($res) && count($res) == 1) {
             $obj = new sc_customer_model();
-            $this->form_validation->set_rules('name', $this->lang->line('name'), 'required|trim|edit_isDataExitSingTable_validator[' . implode(',', array($id, 'customerid', 'name', 'sc_customer_model')) . ']');
 
-            if ($this->form_validation->run() == FALSE) {
-                $this->form_validation->set_value('name');
-                $this->edit($id);
-            } else {
                 $obj->customerid = $id;
-                $obj->name = $this->input->post('name');
+                $obj->firstname = $this->input->post('firstname');
+                $obj->middlename = $this->input->post('middlename');
+                $obj->lastname = $this->input->post('lastname');
+                $obj->housenumber = $this->input->post('housenumber');
+                $obj->society = $this->input->post('society');
+                $obj->email = $this->input->post('email');
+                $obj->date_of_reg = date('Y-m-d', strtotime($this->input->post('date_of_reg')));
+                $obj->mobileno = $this->input->post('mobileno');
+                $obj->language = $this->input->post('language');
+                $obj->setup_box_id = $this->input->post('setup_box_id');
 
                 $session_data = $this->session->userdata('admin_details');
                 $obj->modify_id = $session_data['session_admin_id'];
@@ -121,7 +133,6 @@ class maintain_customer extends CI_Controller {
                     $this->session->set_flashdata('error', $this->lang->line('edit_error'));
                     redirect(ADMIN_BASE_URL . 'customer', 'refresh');
                 }
-            }
         } else {
             $this->session->set_flashdata('error', $this->lang->line('edit_error'));
             redirect(ADMIN_BASE_URL . 'customer', 'refresh');
@@ -175,6 +186,20 @@ class maintain_customer extends CI_Controller {
             $customers[] = $temp;
         }
         echo json_encode($customers);
+    }
+
+    function import_excel_file(){
+         $this->layout->view('admin/customer/import_view');
+    }
+
+    function importListener(){
+        $pathToFile = $_FILES['user_file']['tmp_name'];
+        $this->load->helper('excel/php_to_excel');
+        includeExcelClasses();
+        $objPHPExcel = PHPExcel_IOFactory::load($pathToFile);
+        $array = $objPHPExcel->getActiveSheet()->toArray();
+        $this->sc_customer_model->importData($array);
+        redirect(ADMIN_BASE_URL . 'customer', 'refresh');
     }
 
 }

@@ -9,6 +9,7 @@ Class sc_customer_model extends CI_model {
     public $firstname;
     public $middlename;
     public $lastname;
+    public $note;
     public $email;
     public $password;
     public $housenumber;
@@ -91,6 +92,7 @@ Class sc_customer_model extends CI_model {
         $new->middlename = $old->middlename;
         $new->lastname = $old->lastname;
         $new->email = $old->email;
+        $new->note = $old->note;
         $new->password = $old->password;
         $new->housenumber = $old->housenumber;
         $new->society = $old->society;
@@ -119,6 +121,9 @@ Class sc_customer_model extends CI_model {
 
         if ($this->lastname != '')
             $arr['lastname'] = $this->lastname;
+
+        if ($this->note != '')
+            $arr['note'] = $this->note;
 
         if ($this->email != '')
             $arr['email'] = $this->email;
@@ -255,15 +260,15 @@ Class sc_customer_model extends CI_model {
         $result = $res->result();
 
         if ($res->num_rows > 0) {
-            $last_id = substr($result[0]->customerid, 5);
+            $last_id = (int) substr($result[0]->customerid, 5);
         }
         if ($last_id >= 0 && $last_id < 9) {
             $new_id = 'SC_C_000' . ($last_id + 1);
-        } else if ($last_id > 9 && $last_id < 99) {
+        } else if ($last_id >= 9 && $last_id < 99) {
             $new_id = 'SC_C_00' . ($last_id + 1);
-        } else if ($last_id > 99 && $last_id < 999) {
+        } else if ($last_id >= 99 && $last_id < 999) {
             $new_id = 'SC_C_0' . ($last_id + 1);
-        } else if ($last_id > 999 && $last_id <= 9999) {
+        } else if ($last_id >= 999 && $last_id <= 9999) {
             $new_id = 'SC_C_' . ($last_id + 1);
         }
 
@@ -276,6 +281,59 @@ Class sc_customer_model extends CI_model {
         $this->db->like('housenumber',$no, FALSE);
         $res = $this->db->get();
         return $res->result();
+    }
+
+    function importData($data_in_array){
+        $this->load->model('sc_setupbox_model');
+        $this->load->model('sc_connection_rate_model');
+
+        $session_data = $this->session->userdata('admin_details');
+
+        foreach ($data_in_array as $arr) {
+            $obj_setup_box = new sc_setupbox_model();
+            $setupboxid = $obj_setup_box->autoIncrementID();
+            $obj_setup_box->setup_box_id = $setupboxid;
+            $obj_setup_box->model = 0;
+            $obj_setup_box->stb_no =  $arr[8] ;
+            $obj_setup_box->type = 'NR';
+            $obj_setup_box->cfa_no = $arr[10];
+            $obj_setup_box->date_of_purchase = date('Y-m-d', strtotime($arr[11]));
+            $obj_setup_box->created_id = $session_data['session_admin_id'];
+            $obj_setup_box->created_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj_setup_box->modify_id = $session_data['session_admin_id'];
+            $obj_setup_box->modify_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj_setup_box->insertData();
+
+            $obj = new sc_customer_model();
+            $customerid= $obj->autoIncrementID();
+            $obj->customerid = $customerid;
+            $obj->firstname = ucfirst($arr[1]);
+            $obj->middlename = strtoupper($arr[2]);
+            $obj->lastname = ucfirst($arr[3]);
+            $obj->note = $arr[4];
+            $obj->housenumber = $arr[5];
+            $obj->society = $arr[6];
+            $obj->email = Null;
+            $obj->date_of_reg = date('Y-m-d', strtotime($arr[11]));
+            $obj->mobileno = $arr[7];
+            $obj->language = '1';
+            $obj->setup_box_id = $setupboxid;
+            $obj->created_id = $session_data['session_admin_id'];
+            $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj->modify_id = $session_data['session_admin_id'];
+            $obj->modify_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj->insertData();
+
+            $obj_rate = new sc_connection_rate_model();
+            $obj_rate->customer_id = $customerid;
+            $obj_rate->rate_year = get_current_date_time()->year;
+            $obj_rate->rate = '250';
+            $obj_rate->created_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj_rate->modify_id = $session_data['session_admin_id'];
+            $obj_rate->modify_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj_rate->insertData();
+        }
+        return true;
     }
 
 }
