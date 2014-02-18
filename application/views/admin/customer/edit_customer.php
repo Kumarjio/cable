@@ -154,7 +154,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-4 col-sm-4 col-xs-6">
-                    <input type="text" name="monthly_rate"  value="<?php echo set_value('monthly_rate'); ?>" class="form-control"/>
+                    <input type="text" name="monthly_rate"  value="<?php echo $monthly_rate[0]->rate; ?>" class="form-control"/>
                     <?php echo form_error('monthly_rate'); ?>
                 </div>
             </div>

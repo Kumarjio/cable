@@ -46,7 +46,7 @@ class maintain_customer extends CI_Controller {
             $this->form_validation->set_value('setup_box_id');
             $this->add();
         } else {
-            $customerid= $obj->autoIncrementID();
+            $customerid = $obj->autoIncrementID();
             $obj->customerid = $customerid;
             $obj->firstname = $this->input->post('firstname');
             $obj->middlename = $this->input->post('middlename');
@@ -94,7 +94,10 @@ class maintain_customer extends CI_Controller {
 
             $obj_setup_box = new sc_setupbox_model();
             $data['setupbox_details'] = $obj_setup_box->getNonUsedSetupbox();
-            $data['current_box_details'] = $obj_setup_box->getWhere(array('setup_box_id'=>$res[0]->setup_box_id));
+            $data['current_box_details'] = $obj_setup_box->getWhere(array('setup_box_id' => $res[0]->setup_box_id));
+
+            $obj_setup_box = new sc_connection_rate_model();
+            $data['monthly_rate'] = $obj_setup_box->getWhere(array('customer_id' => $id, 'rate_year' => get_current_date_time()->year));
 
             $data['customer_details'] = $res[0];
             $this->layout->view('admin/customer/edit_customer', $data);
@@ -109,30 +112,53 @@ class maintain_customer extends CI_Controller {
         if (is_array($res) && count($res) == 1) {
             $obj = new sc_customer_model();
 
-                $obj->customerid = $id;
-                $obj->firstname = $this->input->post('firstname');
-                $obj->middlename = $this->input->post('middlename');
-                $obj->lastname = $this->input->post('lastname');
-                $obj->housenumber = $this->input->post('housenumber');
-                $obj->society = $this->input->post('society');
-                $obj->email = $this->input->post('email');
-                $obj->date_of_reg = date('Y-m-d', strtotime($this->input->post('date_of_reg')));
-                $obj->mobileno = $this->input->post('mobileno');
-                $obj->language = $this->input->post('language');
-                $obj->setup_box_id = $this->input->post('setup_box_id');
+            $obj->customerid = $id;
+            $obj->firstname = $this->input->post('firstname');
+            $obj->middlename = $this->input->post('middlename');
+            $obj->lastname = $this->input->post('lastname');
+            $obj->housenumber = $this->input->post('housenumber');
+            $obj->society = $this->input->post('society');
+            $obj->email = $this->input->post('email');
+            $obj->date_of_reg = date('Y-m-d', strtotime($this->input->post('date_of_reg')));
+            $obj->mobileno = $this->input->post('mobileno');
+            $obj->language = $this->input->post('language');
+            $obj->setup_box_id = $this->input->post('setup_box_id');
 
-                $session_data = $this->session->userdata('admin_details');
-                $obj->modify_id = $session_data['session_admin_id'];
-                $obj->modify_datetime = get_current_date_time()->get_date_time_for_db();
+            $session_data = $this->session->userdata('admin_details');
+            $obj->modify_id = $session_data['session_admin_id'];
+            $obj->modify_datetime = get_current_date_time()->get_date_time_for_db();
 
-                $check = $obj->updateData();
-                if ($check == true) {
-                    $this->session->set_flashdata('success', $this->lang->line('edit_success'));
-                    redirect(ADMIN_BASE_URL . 'customer', 'refresh');
-                } else {
-                    $this->session->set_flashdata('error', $this->lang->line('edit_error'));
-                    redirect(ADMIN_BASE_URL . 'customer', 'refresh');
-                }
+            $check = $obj->updateData();
+
+            $obj_setup_box = new sc_connection_rate_model();
+            $monthly_rate = $obj_setup_box->getWhere(array('customer_id' => $id, 'rate_year' => get_current_date_time()->year));
+
+            if (is_array($monthly_rate)) {
+                $obj_rate = new sc_connection_rate_model();
+                $obj_rate->cr_id = $monthly_rate[0]->cr_id;
+                $obj_rate->rate = $this->input->post('monthly_rate');
+                $obj_rate->modify_id = $session_data['session_admin_id'];
+                $obj_rate->modify_datetime = get_current_date_time()->get_date_time_for_db();
+                $check = $obj_rate->updateData();
+            } else {
+                $obj_rate = new sc_connection_rate_model();
+                $obj_rate->customer_id = $id;
+                $obj_rate->rate_year = get_current_date_time()->year;
+                $obj_rate->rate = $this->input->post('monthly_rate');
+                $obj_rate->created_id = $session_data['session_admin_id'];
+                $obj_rate->created_datetime = get_current_date_time()->get_date_time_for_db();
+                $obj_rate->modify_id = $session_data['session_admin_id'];
+                $obj_rate->modify_datetime = get_current_date_time()->get_date_time_for_db();
+                $check = $obj_rate->insertData();
+            }
+
+            if ($check == true) {
+                $this->session->set_flashdata('success', $this->lang->line('edit_success'));
+                redirect(ADMIN_BASE_URL . 'customer', 'refresh');
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('edit_error'));
+                redirect(ADMIN_BASE_URL . 'customer', 'refresh');
+            }
         } else {
             $this->session->set_flashdata('error', $this->lang->line('edit_error'));
             redirect(ADMIN_BASE_URL . 'customer', 'refresh');
@@ -157,12 +183,36 @@ class maintain_customer extends CI_Controller {
     }
 
     function getJson() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('concat(c.firstname," ", c.middlename, " ", c.lastname) AS customer_name', 'housenumber', 'soc.name', 'mobileno', 'stb_no');
+        $this->datatable->eColumns = array('c.customerid');
+        $this->datatable->sIndexColumn = "c.customerid";
+        $this->datatable->sTable = " sc_customer c, sc_setupbox sb, sc_society soc";
+        $this->datatable->myWhere = "WHERE c.society=soc.societyid and sb.setup_box_id = c.setup_box_id";
+        $this->datatable->sOrder = "order by housenumber desc";
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = '<a href="' . ADMIN_BASE_URL . 'customer/edit/' . $aRow['customerid'] . '">' . $aRow['customer_name'] . '</a>';
+            $temp_arr[] = $aRow['housenumber'];
+            $temp_arr[] = $aRow['mobileno'];
+            $temp_arr[] = $aRow['stb_no'];
+            $temp_arr[] = $aRow['name'];
+            $temp_arr[] = '<a href="javascript:;" onclick="deleteRow(this)" class="deletepage icon-trash" id="' . $aRow['customerid'] . '"></a>';
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+        
+        
+        /*
         $records = $this->sc_customer_model->getAll();
         $array = $this->getArrayForJson($records);
         $data['aaData'] = $array;
         if (is_array($data)) {
             echo json_encode($data);
-        }
+        }*/
     }
 
     function getArrayForJson($objects) {
@@ -182,17 +232,17 @@ class maintain_customer extends CI_Controller {
         foreach ($res as $r) {
             $temp = array();
             $temp['value'] = $r->customerid;
-            $temp['label'] = $r->firstname .' '. $r->lastname .' (' . $r->housenumber .')';
+            $temp['label'] = $r->firstname . ' ' . $r->lastname . ' (' . $r->housenumber . ')';
             $customers[] = $temp;
         }
         echo json_encode($customers);
     }
 
-    function import_excel_file(){
-         $this->layout->view('admin/customer/import_view');
+    function import_excel_file() {
+        $this->layout->view('admin/customer/import_view');
     }
 
-    function importListener(){
+    function importListener() {
         $pathToFile = $_FILES['user_file']['tmp_name'];
         $this->load->helper('excel/php_to_excel');
         includeExcelClasses();

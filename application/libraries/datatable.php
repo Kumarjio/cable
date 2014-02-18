@@ -209,7 +209,7 @@ class Datatable extends CI_Controller {
 
          */
 
-        $this->output = array("sEcho" => intval($_GET['sEcho']), "iTotalRecords" => $iTotal, "iTotalDisplayRecords" => $iTotal, // $iFilteredTotal,
+        $this->output = array("sEcho" => intval(isset($_GET['sEcho']) ? $_GET['sEcho'] : 0), "iTotalRecords" => $iTotal, "iTotalDisplayRecords" => $iTotal, // $iFilteredTotal,
 
             "aaData" => array());
     }

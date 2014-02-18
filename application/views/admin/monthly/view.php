@@ -191,7 +191,7 @@ return false;
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="display" id="list_monthly_payment" cellpadding="0" cellspacing="0" border="0">
+            <table id="list_monthly_payment" class="table table-bordered table-hover">
                 <thead>
                     <tr align="left">
                         <th><?php echo $this->lang->line('name'); ?></th>

@@ -1,12 +1,15 @@
 <script type="text/javascript" >
     $(document).ready(function() {
         $('#list_customer').dataTable( {
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
             "bProcessing": true,
-            'iDisplayLength': 10,
+            "bInfo" : false,
+            "bPaginate" : true,
+            "bFilter": true,
+            "bSort" : false,
+            "iDisplayLength": 10,
+            "bServerSide": true,
             "aoColumns":[
-                {"sClass":""},{"sClass":""}
+                {"sClass":""},{"sClass":"text-center"},{"sClass":"text-center"},{"sClass":"text-center"},{"sClass":"text-center"},{"sClass":"text-center"}
             ],
             "sAjaxSource": "<?php echo ADMIN_BASE_URL . "customer/getJson"; ?>"
         } );
@@ -17,9 +20,9 @@
         var parent = $(ele).parent().parent();
         $.confirm({
             'title' : '<?php echo $this->lang->line('delete') . ' ' . $this->lang->line('menu_customer'); ?>',
-            'message'	: '<?php echo $this->lang->line('do_u_really');?>',
+            'message'	: '<?php echo $this->lang->line('do_u_really'); ?>',
             'buttons'	: {
-                '<?php echo $this->lang->line('yes');?>'	: {'class'	: 'btn btn-default',
+                '<?php echo $this->lang->line('yes'); ?>'	: {'class'	: 'btn btn-default',
                     'action': function(){
                         $.ajax({
                             type : 'POST',
@@ -37,7 +40,7 @@
                         });
                     }
                 },
-                '<?php echo $this->lang->line('no');?>'	: {
+                '<?php echo $this->lang->line('no'); ?>'	: {
                     'class'	: 'btn btn-default',
                     'action': function(){}
                 }
@@ -74,10 +77,14 @@
                 }
                 ?>
             <?php } ?>
-            <table class="display" id="list_customer" cellpadding="0" cellspacing="0" border="0">
+            <table class="table table-bordered table-hover" id="list_customer">
                 <thead>
                     <tr align="left">
                         <th><?php echo $this->lang->line('name'); ?></th>
+                        <th width="125"><?php echo $this->lang->line('housenumber'); ?></th>
+                        <th width="150"><?php echo $this->lang->line('mobileno'); ?></th>
+                        <th width="125"><?php echo $this->lang->line('setup_box'); ?></th>
+                        <th width="125"><?php echo $this->lang->line('society'); ?></th>
                         <th width="25">&nbsp;</th>
                     </tr>
                 </thead>

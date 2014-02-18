@@ -71,7 +71,7 @@
                 }
                 ?>
             <?php } ?>
-            <table class="display" id="list_setup_box" cellpadding="0" cellspacing="0" border="0">
+            <table id="list_setup_box" class="table table-bordered table-hover">
                 <thead>
                     <tr align="left">
                         <th><?php echo $this->lang->line('name'); ?></th>

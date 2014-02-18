@@ -9,7 +9,7 @@
         <!-- Bootstrap -->
         <link href="<?php echo CSS_URL . 'bootstrap.css'; ?>" rel="stylesheet" media="screen">
         <link href="<?php echo CSS_URL . 'custom.css'; ?>" rel="stylesheet" media="screen">
-        <link href="<?php echo CSS_URL; ?>demo_table_jui.css" rel="stylesheet" />
+        <link href="<?php echo CSS_URL; ?>DT_bootstrap.css" rel="stylesheet" />
         <link href="<?php echo CSS_URL; ?>jquery-ui.css" rel="stylesheet" />
         <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
 
