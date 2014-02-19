@@ -34,21 +34,19 @@
 
                 <form action="<?php echo ADMIN_BASE_URL . 'validateadmin'; ?>" method="post" class="form">
                     <div class="form-group">
-                        <input type="email" name="admin_mail_address" value="<?php echo set_value('admin_mail_address'); ?>" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="E-Mail Address"/>
-                        <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-danger"><?php echo form_error('admin_mail_address'); ?></span>
+                        <input type="email" name="admin_mail_address" value="<?php echo set_value('admin_mail_address'); ?>" class="form-control" placeholder="E-Mail Address"/>
+                        <span class="text-danger"><?php echo form_error('admin_mail_address'); ?></span>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12" name="admin_password">
-                        <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-danger"><?php echo form_error('admin_password'); ?></span>
+                        <input type="password" class="form-control" name="admin_password" placeholder="Password">
+                        <span class="text-danger"><?php echo form_error('admin_password'); ?></span>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" name="submit" class="btn-sm btn-info col-xs-12 col-sm-12 col-md-12 col-lg-12">Login</button>
-                    </div>
-
-                    <div class="form-group">
-                        <a href="<?php echo ADMIN_BASE_URL . 'forgot_password'; ?>"><button type="button" class="btn-sm btn-inverse col-xs-12 col-sm-12 col-md-12 col-lg-12">Forgot Password ?</button></a>
+                        <button type="submit" name="submit" class="btn btn-default">Login</button>
+                        &nbsp;
+                        <a href="<?php echo ADMIN_BASE_URL . 'forgot_password'; ?>"><button type="button" class="btn btn-default">Forgot Password ?</button></a>
                     </div>
                 </form>
             </div>

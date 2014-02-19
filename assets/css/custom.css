@@ -1,3 +1,20 @@
+/*
+
+190 // body bg & text color
+210 // a link color
+1490 //legend color
+1850 //deafult btn
+1862 //deafult btn hover
+1571 // form control focus
+3665 //nav bg color
+3680 //nav a link color
+3683 // nav a link focus, hover color
+3916 // pagin a hover
+3918 // paging bg color
+common
+16 // footer bg color
+*/
+
 .login-page-logo { font-size: 72px;}
 
 .mar-10 { margin: 25px 0 ;}
@@ -9,11 +26,21 @@
     margin: 15px 0 0 15px;
 }
 #footer{
-    background-color: #443266;
     padding: 5px;
     color: #ffffff;
+}
+
+#footer .container{
+    background-color: #443266;
+     border-radius: 4px;
+    height: 25px;
     border-radius: 4px;
 }
+
+#footer .container a {
+    color: #ffffff;
+}
+
 
 .file-input{
     padding: 5px 0 0;
