@@ -84,6 +84,7 @@ $lang['edit_your_details'] = 'Edit your Details';
 $lang['firstname'] = 'Firstname';
 $lang['middlename'] = 'Middlename';
 $lang['lastname'] = 'Lastname';
+$lang['extra_info'] = 'Extra Info';
 $lang['mobileno'] = 'Mobile Number';
 $lang['email_address'] = 'E-mail Address';
 $lang['housenumber'] = 'Housernumber';

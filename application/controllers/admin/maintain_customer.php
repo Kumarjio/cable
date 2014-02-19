@@ -51,6 +51,7 @@ class maintain_customer extends CI_Controller {
             $obj->firstname = $this->input->post('firstname');
             $obj->middlename = $this->input->post('middlename');
             $obj->lastname = $this->input->post('lastname');
+            $obj->note = $this->input->post('note');
             $obj->housenumber = $this->input->post('housenumber');
             $obj->society = $this->input->post('society');
             $obj->email = $this->input->post('email');
@@ -116,6 +117,7 @@ class maintain_customer extends CI_Controller {
             $obj->firstname = $this->input->post('firstname');
             $obj->middlename = $this->input->post('middlename');
             $obj->lastname = $this->input->post('lastname');
+            $obj->note = $this->input->post('note');
             $obj->housenumber = $this->input->post('housenumber');
             $obj->society = $this->input->post('society');
             $obj->email = $this->input->post('email');
@@ -204,26 +206,6 @@ class maintain_customer extends CI_Controller {
         }
         echo json_encode($this->datatable->output);
         exit();
-        
-        
-        /*
-        $records = $this->sc_customer_model->getAll();
-        $array = $this->getArrayForJson($records);
-        $data['aaData'] = $array;
-        if (is_array($data)) {
-            echo json_encode($data);
-        }*/
-    }
-
-    function getArrayForJson($objects) {
-        $arra = array();
-        foreach ($objects as $value) {
-            $temp_arr = array();
-            $temp_arr[] = '<a href="' . ADMIN_BASE_URL . 'customer/edit/' . $value->customerid . '">' . @$value->firstname . ' ' . @$value->middlename . ' ' . @$value->lastname . '</a>';
-            $temp_arr[] = '<a href="javascript:;" onclick="deleteRow(this)" class="deletepage icon-trash" id="' . $value->customerid . '"></a>';
-            $arra[] = $temp_arr;
-        }
-        return $arra;
     }
 
     function getCustomerAutocomplete() {

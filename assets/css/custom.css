@@ -9,19 +9,36 @@
     margin: 15px 0 0 15px;
 }
 #footer{
-    background-color: #eee;
+    background-color: #443266;
     padding: 5px;
+    color: #ffffff;
+    border-radius: 4px;
 }
 
 .file-input{
     padding: 5px 0 0;
 }
 
+
 .icon-trash{display:inline-block; height:26px; width:26px; background:url('../img/icons-delete.png') no-repeat -26px 0px; transition:ease-in-out .2s; -moz-transition:ease-in-out .2s; -o-transition:ease-in-out .2s; }
 .icon-trash:hover{background:url('../img/icons-delete.png') no-repeat 0px 0px;}
 
 .add_button {
-    margin: 0px 0px 15px;
+    margin-bottom: 15px;
 }
 
-.form-horizontal .form-group .error {color:red;}
+.dataTables_filter label input, .dataTables_length label select{width: 240px !important; height: 34px; padding: 6px 12px; background-color: #FFFFFF; border: 1px solid #E5E5E5; color: #333333;}
+.dataTables_length label select {width: 75px !important; height: 34px; padding: 6px 12px; background-color: #FFFFFF; border: 1px solid #E5E5E5; color: #333333;}
+
+.big-icon{font-size: 30px;}
+
+.data-table-filter-alignment{margin-bottom: -40px; position: relative; z-index: 1;}
+.col-md-12 .data-table-filter-alignment{margin-right: 20px;}
+
+#leave_calendar .sorting_disabled{display: none;}
+
+label.error {width:100% !important; white-space: nowrap; color: red}
+
+.padding-killer { padding-left: 0 !important; padding-right: 0 !important; }
+.padding-killer-left { padding-left: 0 !important; }
+.padding-killer-right { padding-right: 0 !important; }

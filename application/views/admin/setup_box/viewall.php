@@ -1,10 +1,13 @@
 <script type="text/javascript" >
     $(document).ready(function() {
         $('#list_setup_box').dataTable( {
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
             "bProcessing": true,
-            'iDisplayLength': 10,
+            "bInfo" : false,
+            "bPaginate" : true,
+            "bFilter": true,
+            "bSort" : false,
+            "iDisplayLength": 25,
+            "bServerSide": true,
             "aoColumns":[
                 {"sClass":""},{"sClass":""},
                 {"sClass":""},{"sClass":""},

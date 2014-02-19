@@ -36,8 +36,6 @@ class maintain_setup_box extends CI_Controller {
             $this->add();
         } else {
             $obj->setup_box_id = $obj->autoIncrementID();
-            var_dump($obj->setup_box_id);
-            exit;
             $obj->model = $this->input->post('model');
             $obj->stb_no = $this->input->post('stb_no');
             $obj->type = $this->input->post('type');
@@ -132,31 +130,31 @@ class maintain_setup_box extends CI_Controller {
     }
 
     function getJson() {
-        $records = $this->sc_setupbox_model->getAll();
-        $array = $this->getArrayForJson($records);
-        $data['aaData'] = $array;
-        if (is_array($data)) {
-            echo json_encode($data);
-        }
-    }
+       $this->load->library('datatable');
+        $this->datatable->aColumns = array('model','stb_no','type','cfa_no', 'date_of_purchase');
+        $this->datatable->eColumns = array('setup_box_id');
+        $this->datatable->sIndexColumn = "setup_box_id";
+        $this->datatable->sTable = "sc_setupbox";
+        $this->datatable->myWhere = "WHERE 1=1";
+        $this->datatable->sOrder = "order by housenumber desc";
+        $this->datatable->datatable_process();
 
-    function getArrayForJson($objects) {
-        $arra = array();
-        foreach ($objects as $value) {
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = '<a href="' . ADMIN_BASE_URL . 'setup_box/edit/' . $value->setup_box_id . '">' . $value->model . '</a>';
-            if ($value->type == 'NR') {
+            $temp_arr[] = '<a href="' . ADMIN_BASE_URL . 'setup_box/edit/' . $aRow['setup_box_id'] . '">' . $aRow['model'] . '</a>';
+            if ($aRow['type'] == 'NR') {
                 $temp_arr[] = 'Normal';
             } else {
                 $temp_arr[] = 'HD';
             }
-            $temp_arr[] = $value->stb_no;
-            $temp_arr[] = $value->cfa_no;
-            $temp_arr[] = $value->date_of_purchase;
-            $temp_arr[] = '<a href="javascript:;" onclick="deleteRow(this)" class="deletepage icon-trash" id="' . $value->setup_box_id . '"></a>';
-            $arra[] = $temp_arr;
+            $temp_arr[] = $aRow['stb_no'];
+            $temp_arr[] = $aRow['cfa_no'];
+            $temp_arr[] = date('d-m-Y',strtotime($aRow['date_of_purchase']));
+            $temp_arr[] = '<a href="javascript:;" onclick="deleteRow(this)" class="deletepage icon-trash" id="' . $aRow['setup_box_id'] . '"></a>';
+            $this->datatable->output['aaData'][] = $temp_arr;
         }
-        return $arra;
+        echo json_encode($this->datatable->output);
+        exit();
     }
 
 }

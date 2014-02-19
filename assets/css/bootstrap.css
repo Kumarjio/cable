@@ -190,8 +190,8 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
-    color: #333333;
-    background-color: #ffffff;
+     color: #443266;
+    background-color: #F1F0FF;
 }
 input,
 button,
@@ -208,12 +208,12 @@ textarea {
     background-image: none;
 }
 a {
-    color: #428bca;
+    color: #ffffff;
     text-decoration: none;
 }
 a:hover,
 a:focus {
-    color: #2a6496;
+    color: #C3C3E5;
     text-decoration: underline;
 }
 a:focus {
@@ -1494,7 +1494,7 @@ legend {
     margin-bottom: 20px;
     font-size: 21px;
     line-height: inherit;
-    color: #333333;
+     color: #443266;
     border: 0;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -1848,9 +1848,9 @@ fieldset[disabled] .btn {
     box-shadow: none;
 }
 .btn-default {
-    color: #333333;
-    background-color: #ffffff;
-    border-color: #cccccc;
+     color: #ffffff;
+    background-color: #443266;
+    border-color: #443266;
 }
 .btn-default:hover,
 .btn-default:focus,
@@ -3663,7 +3663,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     }
 }
 .navbar-default {
-    background-color: #f8f8f8;
+    background-color: #443266;
     border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
@@ -3678,18 +3678,18 @@ textarea.input-group-sm > .input-group-btn > .btn {
     color: #777777;
 }
 .navbar-default .navbar-nav > li > a {
-    color: #777777;
+    color: #ffffff;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #333333;
+    color: #C3C3E5;
     background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #555555;
-    background-color: #e7e7e7;
+    color: #ffffff;
+    background-color: #C3C3E5;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -5921,3 +5921,17 @@ and (max-width : 480px) {
     }
 }
 
+/***
+Make font awesome icons fixed width(latest version issue)
+***/
+li [class^="fa-"],
+li [class*=" fa-"] {
+  display: inline-block;
+  width: 1.25em;
+  text-align: center;
+}
+li [class^="fa-"].icon-large,
+li [class*=" fa-"].icon-large {
+  /* increased font size for icon-large */
+  width: 1.5625em;
+}

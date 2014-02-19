@@ -2,11 +2,12 @@
 $(document).ready(function() {
     $('#list_monthly_payment').dataTable( {
         "bProcessing": true,
-        "bJQueryUI": true,
-        "sPaginationType": "full_numbers",
-        "bProcessing": true,
-        'iDisplayLength': 25,
-        'bServerSide' : true,
+            "bInfo" : false,
+            "bPaginate" : true,
+            "bFilter": true,
+            "bSort" : false,
+            "iDisplayLength": 10,
+            "bServerSide": true,
         "sAjaxSource": "<?php echo ADMIN_BASE_URL . "monthly/getJson/"; ?>" +  document.getElementById("month").value + "/"+  document.getElementById("year").value
     } );
 } );
@@ -17,11 +18,12 @@ function change_month(){
 
     var oTable = $('#list_monthly_payment').dataTable( {
         "bProcessing": true,
-        "bJQueryUI": true,
-        "sPaginationType": "full_numbers",
-        "bProcessing": true,
-        'iDisplayLength': 25,
-        'bServerSide' : true,
+            "bInfo" : false,
+            "bPaginate" : true,
+            "bFilter": true,
+            "bSort" : false,
+            "iDisplayLength": 10,
+            "bServerSide": true,
         "sAjaxSource": "<?php echo ADMIN_BASE_URL . "monthly/getJson/"; ?>" +  document.getElementById("month").value + "/"+  document.getElementById("year").value
     } );
 }
@@ -32,11 +34,12 @@ function change_year(){
 
     var oTable = $('#list_invoice').dataTable( {
         "bProcessing": true,
-        "bJQueryUI": true,
-        "sPaginationType": "full_numbers",
-        "bProcessing": true,
-        'iDisplayLength': 25,
-        'bServerSide' : true,
+            "bInfo" : false,
+            "bPaginate" : true,
+            "bFilter": true,
+            "bSort" : false,
+            "iDisplayLength": 10,
+            "bServerSide": true,
         "sAjaxSource": "<?php echo ADMIN_BASE_URL . "monthly/getJson/"; ?>" +  document.getElementById("month").value + "/"+  document.getElementById("year").value
     } );
 }
@@ -82,7 +85,7 @@ return false;
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="row add_button pull-left col-md-6" style="z-index: 9999">
+            <div class="add_button col-md-6"">
                 <a href="<?php echo ADMIN_BASE_URL . 'monthly/view'; ?>" class="btn btn-default">
                     <?php echo $this->lang->line('add') . ' ' . $this->lang->line('menu_monthly'); ?>
                 </a>

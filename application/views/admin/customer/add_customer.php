@@ -48,6 +48,16 @@
 
             <div class="form-group">
                 <label class="col-sm-2 col-xs-6 control-label">
+                    <?php echo $this->lang->line('extra_info'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-4 col-sm-4 col-xs-6">
+                    <textarea class="form-control" name="note"><?php echo set_value('note'); ?></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 col-xs-6 control-label">
                     <?php echo $this->lang->line('housenumber'); ?>
                     <span class="text-danger">*</span>
                 </label>
