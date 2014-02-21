@@ -174,6 +174,21 @@ Class sc_monthly_payment_model extends CI_model {
        return (int)$res[0]->amount;
     }
 
+    function getAmountPaid($where){
+        $this->db->select('*');
+        $this->db->from($this->table_name);
+        $this->db->where($where);
+        $res = $this->db->get();
+        if($res->num_rows == 1){
+            $amt = $res->result();
+            return $amt[0]; 
+        }else{
+            $object = new stdClass();
+            $object->amount = 0;
+            return $object;
+        }
+    }
+
 }
 
 ?>

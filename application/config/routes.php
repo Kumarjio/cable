@@ -79,6 +79,7 @@ $route['admin/customer/delete/(:any)'] = "admin/maintain_customer/deleteListener
 $route['admin/customer/get'] = "admin/maintain_customer/getCustomerAutocomplete";
 $route['admin/customer/import'] = "admin/maintain_customer/import_excel_file";
 $route['admin/customer/import_file'] = "admin/maintain_customer/importListener";
+$route['admin/customer/history/(:any)'] = "admin/maintain_customer/customerHistory/$1";
 
 
 //Admin Profile

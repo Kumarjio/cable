@@ -13,6 +13,9 @@ class maintain_customer extends CI_Controller {
         $this->load->model('sc_society_model');
         $this->load->model('sc_setupbox_model');
         $this->load->model('sc_connection_rate_model');
+        $this->load->model('sc_monthly_payment_model');
+
+        //$this->output->enable_profiler(TRUE);
     }
 
     public function index() {
@@ -87,6 +90,12 @@ class maintain_customer extends CI_Controller {
     }
 
     function edit($id) {
+        $id = $this->encrypt->decode($id, $this->config->item('my_encrypt_key'));
+        if(!preg_match("/^[a-zA-Z0-9_]*$/", $id)){
+            $this->session->set_flashdata('error', 'URL is altered. Please do not change the URL');
+            redirect('admin/customer', 'refresh');
+        }
+
         $res = $this->sc_customer_model->getWhere(array('customerid' => $id));
         if (is_array($res) && count($res) == 1) {
 
@@ -109,6 +118,12 @@ class maintain_customer extends CI_Controller {
     }
 
     function editListener($id) {
+        $id = $this->encrypt->decode($id, $this->config->item('my_encrypt_key'));
+        if(!preg_match("/^[a-zA-Z0-9_]*$/", $id)){
+            $this->session->set_flashdata('error', 'URL is altered. Please do not change the URL');
+            redirect('admin/customer', 'refresh');
+        }
+
         $res = $this->sc_customer_model->getWhere(array('customerid' => $id));
         if (is_array($res) && count($res) == 1) {
             $obj = new sc_customer_model();
@@ -196,11 +211,12 @@ class maintain_customer extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = '<a href="' . ADMIN_BASE_URL . 'customer/edit/' . $aRow['customerid'] . '">' . $aRow['customer_name'] . '</a>';
+            $temp_arr[] = '<a href="' . ADMIN_BASE_URL . 'customer/edit/' . $this->encrypt->encode($aRow['customerid'], $this->config->item('my_encrypt_key')) . '">' . $aRow['customer_name'] . '</a>';
             $temp_arr[] = $aRow['housenumber'];
             $temp_arr[] = $aRow['mobileno'];
             $temp_arr[] = $aRow['stb_no'];
             $temp_arr[] = $aRow['name'];
+            $temp_arr[] = '<a href="' . ADMIN_BASE_URL . 'customer/history/' . $this->encrypt->encode($aRow['customerid'], $this->config->item('my_encrypt_key')) . '">' . $this->lang->line('click_here') . '</a>';
             $temp_arr[] = '<a href="javascript:;" onclick="deleteRow(this)" class="deletepage icon-trash" id="' . $aRow['customerid'] . '"></a>';
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -232,6 +248,42 @@ class maintain_customer extends CI_Controller {
         $array = $objPHPExcel->getActiveSheet()->toArray();
         $this->sc_customer_model->importData($array);
         redirect(ADMIN_BASE_URL . 'customer', 'refresh');
+    }
+
+    function customerHistory($customerid){
+        $customerid = $this->encrypt->decode($customerid, $this->config->item('my_encrypt_key'));
+        if(!preg_match("/^[a-zA-Z0-9_]*$/", $customerid)){
+            $this->session->set_flashdata('error', 'URL is altered. Please do not change the URL');
+            redirect('admin/customer', 'refresh');
+        }
+
+        $data['customer_detail'] = $this->sc_customer_model->getWhere(array('customerid' => $customerid));
+
+        $register_date_year = date('Y', strtotime($data['customer_detail'][0]->date_of_reg));
+        if($data['customer_detail'][0]->date_of_disconnection !== null && $data['customer_detail'][0]->date_of_disconnection != '') {
+            $disconnect_date_year = date('Y', strtotime($data['customer_detail'][0]->date_of_disconnection));
+        } else {
+            $disconnect_date_year = get_current_date_time()->year;
+        }
+
+        $str = '<div class="table-scrollable"><table class="table table-bordered table-hover">';
+        $str .= '<thead><tr><th>&nbsp;</th>';
+        for($i= 1; $i<=12; $i++){
+            $str .= '<th class="text-center">' . date('M', strtotime(date('Y') .'-' . $i .'-01')). '</th>';
+        }
+        $str .= '</tr></thead><tbody>';
+        for($year = $register_date_year ; $year <= $disconnect_date_year; $year++){
+            $str .= '<tr><th class="text-center">' . $year .'</th>'; 
+            for($mon= 1; $mon<=12; $mon++){
+                $pay = $this->sc_monthly_payment_model->getAmountPaid(array('customer_id' => $data['customer_detail'][0]->customerid, 'payment_year' => $year, 'payment_month' => $mon));
+                $str .= '<td class="text-center">' . $pay->amount . '</td>';
+            }  
+        }
+        
+        $str .= '</tbody></table></div>';
+
+        $data['table'] = $str;
+        $this->layout->view('admin/customer/history', $data);
     }
 
 }

@@ -93,6 +93,8 @@ $lang['monthly_rate'] = 'Monthly Rate';
 $lang['date_of_reg'] = 'Date of Registration';
 $lang['setup_box'] = 'Setup Box';
 $lang['excel_file'] = 'Excel File';
+$lang['history'] = 'History';
+$lang['label_customer_history'] = 'Showing history of :';
 
 //SetupBox
 $lang['model'] = 'Model';

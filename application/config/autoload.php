@@ -60,7 +60,8 @@ $autoload['libraries'] = array(
     'database', 
     'session', 
     'layout',
-    'Lanugage_Change');
+    'Lanugage_Change',
+    'encrypt');
 
 
 /*

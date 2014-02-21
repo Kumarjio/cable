@@ -21,6 +21,7 @@ define('CSS_URL', 'http://localhost/Try/cable/assets/css/');
 define('JS_URL', 'http://localhost/Try/cable/assets/js/');
 define('ASSETS_URL', 'http://localhost/Try/cable/assets/');
 
+$config['my_encrypt_key'] = '!!*S_C_STAR_CABLE*!!';
 /*
 |--------------------------------------------------------------------------
 | Index File

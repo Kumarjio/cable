@@ -13,7 +13,7 @@
 
 <div class="container row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <form action="<?php echo ADMIN_BASE_URL . 'customer/update/' . $customer_details->customerid ?>" method="post" id="add_customer" class="form-horizontal">
+        <form action="<?php echo ADMIN_BASE_URL . 'customer/update/' . $this->encrypt->encode($customer_details->customerid, $this->config->item('my_encrypt_key')) ?>" method="post" id="add_customer" class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-2 col-xs-6 control-label">
                     <?php echo $this->lang->line('firstname'); ?>

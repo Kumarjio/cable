@@ -15,10 +15,12 @@ Class sc_customer_model extends CI_model {
     public $housenumber;
     public $society;
     public $date_of_reg;
+    public $date_of_disconnection;
     public $mobileno;
     public $avtar;
     public $language;
     public $setup_box_id;
+    public $status;
     public $created_id;
     public $created_datetime;
     public $modify_id;
@@ -97,10 +99,12 @@ Class sc_customer_model extends CI_model {
         $new->housenumber = $old->housenumber;
         $new->society = $old->society;
         $new->date_of_reg = $old->date_of_reg;
+        $new->date_of_disconnection = $old->date_of_disconnection;
         $new->mobileno = $old->mobileno;
         $new->avtar = $old->avtar;
         $new->language = $old->language;
         $new->setup_box_id = $old->setup_box_id;
+        $new->status = $old->status;
         $new->created_id = $old->created_id;
         $new->created_datetime = $old->created_datetime;
         $new->modify_id = $old->modify_id;
@@ -140,6 +144,9 @@ Class sc_customer_model extends CI_model {
         if ($this->date_of_reg != '')
             $arr['date_of_reg'] = $this->date_of_reg;
 
+        if ($this->date_of_disconnection != '')
+            $arr['date_of_disconnection'] = $this->date_of_disconnection;
+
         if ($this->mobileno != '')
             $arr['mobileno'] = $this->mobileno;
 
@@ -153,6 +160,9 @@ Class sc_customer_model extends CI_model {
 
         if ($this->setup_box_id != '')
             $arr['setup_box_id'] = $this->setup_box_id;
+
+        if ($this->status != '')
+            $arr['status'] = $this->status;
 
         if ($this->created_id != '')
             $arr['created_id'] = $this->created_id;

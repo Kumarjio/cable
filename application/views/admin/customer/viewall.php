@@ -6,10 +6,12 @@
             "bPaginate" : true,
             "bFilter": true,
             "bSort" : false,
-            "iDisplayLength": 10,
+            "iDisplayLength": 25,
             "bServerSide": true,
             "aoColumns":[
-                {"sClass":""},{"sClass":"text-center"},{"sClass":"text-center"},{"sClass":"text-center"},{"sClass":"text-center"},{"sClass":"text-center"}
+                {"sClass":""},{"sClass":"text-center"},{"sClass":"text-center"},
+                {"sClass":"text-center"},{"sClass":"text-center"},{"sClass":"text-center"},
+                {"sClass":"text-center"}
             ],
             "sAjaxSource": "<?php echo ADMIN_BASE_URL . "customer/getJson"; ?>"
         } );
@@ -85,6 +87,7 @@
                         <th width="150"><?php echo $this->lang->line('mobileno'); ?></th>
                         <th width="125"><?php echo $this->lang->line('setup_box'); ?></th>
                         <th width="125"><?php echo $this->lang->line('society'); ?></th>
+                        <th width="125"><?php echo $this->lang->line('history'); ?></th>
                         <th width="25">&nbsp;</th>
                     </tr>
                 </thead>

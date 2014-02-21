@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title><?php echo $page_title; ?></title>
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $page_title; ?></title>
 
-        <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>img/favicon.png">
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>img/favicon.png">
 
-        <!-- Bootstrap -->
-        <link href="<?php echo CSS_URL . 'bootstrap.css'; ?>" rel="stylesheet" media="screen">
-        <link href="<?php echo CSS_URL . 'custom.css'; ?>" rel="stylesheet" media="screen">
-        <link href="<?php echo CSS_URL; ?>jquery-ui.css" rel="stylesheet" />
-        <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="<?php echo CSS_URL . 'bootstrap.css'; ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo CSS_URL . 'custom.css'; ?>" rel="stylesheet" media="screen">
+    <link href="<?php echo CSS_URL; ?>jquery-ui.css" rel="stylesheet" />
+    <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
 
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="<?php echo JS_URL; ?>html5shiv.js"></script>
           <script src="<?php echo JS_URL; ?>respond.min.js"></script>
-        <![endif]-->
-        <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
-        <script src="<?php echo JS_URL; ?>jquery-1.7.2.min.js" type="text/javascript"></script>
-        <script src="<?php echo JS_URL; ?>jquery-ui.js"></script>
-        <script src="<?php echo JS_URL; ?>jquery.validate.js" type="text/javascript"></script>
-        <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
+          <![endif]-->
+          <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
+          <script src="<?php echo JS_URL; ?>jquery-1.7.2.min.js" type="text/javascript"></script>
+          <script src="<?php echo JS_URL; ?>jquery-ui.js"></script>
+          <script src="<?php echo JS_URL; ?>jquery.validate.js" type="text/javascript"></script>
+          <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
 
-        <link rel="stylesheet" href="<?php echo JS_URL; ?>data-tables/DT_bootstrap.css" />
-        <script type="text/javascript" src="<?php echo JS_URL; ?>data-tables/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="<?php echo JS_URL; ?>data-tables/DT_bootstrap.js"></script>
-        
-        <script type="text/javascript">
-            var http_host_js = '<?php echo ADMIN_BASE_URL; ?>';
-        </script>
-    </head>
-    <body>
+          <link rel="stylesheet" href="<?php echo JS_URL; ?>data-tables/DT_bootstrap.css" />
+          <script type="text/javascript" src="<?php echo JS_URL; ?>data-tables/jquery.dataTables.js"></script>
+          <script type="text/javascript" src="<?php echo JS_URL; ?>data-tables/DT_bootstrap.js"></script>
+
+          <script type="text/javascript">
+          var http_host_js = '<?php echo ADMIN_BASE_URL; ?>';
+          </script>
+      </head>
+      <body>
         <?php $session_data = $this->session->userdata('admin_details'); ?>
         <div class="container">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pull-left">
@@ -67,14 +67,14 @@
                                 <?php echo $this->lang->line('menu_monthly'); ?>
                             </a>
                         </li>
+                         <li <?php echo ($menu == 'customer') ? 'class="active"': ''; ?>>
+                            <a href="<?php echo ADMIN_BASE_URL . 'customer'; ?>">
+                                <?php echo $this->lang->line('menu_customer'); ?>
+                            </a>
+                        </li>
                         <li <?php echo ($menu == 'setup_box') ? 'class="active"': ''; ?>>
                             <a href="<?php echo ADMIN_BASE_URL . 'setup_box'; ?>">
                                 <?php echo $this->lang->line('menu_setup_box'); ?>
-                            </a>
-                        </li>
-                        <li <?php echo ($menu == 'customer') ? 'class="active"': ''; ?>>
-                            <a href="<?php echo ADMIN_BASE_URL . 'customer'; ?>">
-                                <?php echo $this->lang->line('menu_customer'); ?>
                             </a>
                         </li>
                         <li <?php echo ($menu == 'society') ? 'class="active"': ''; ?>>
@@ -94,11 +94,10 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container" id="middle-section">
                 <?php echo $content_for_layout; ?>    
             </div>
 
-            <div class="mar-10"></div>
             <div id="footer">
                 <div class="container">
                     <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -116,6 +115,23 @@
                 </div>
             </div>
         </div>
+        
         <script src="<?php echo JS_URL; ?>bootstrap.js"></script>
-    </body>
-</html>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                PositionFooter();
+            });
+            function PositionFooter() {
+                if (window.innerHeight) {
+                    var height = window.innerHeight;
+                    var parentsHeight = $('#middle-section').height();
+                    var current_height=height-185;
+                    if(parentsHeight<current_height)
+                    {
+                        $('#middle-section').css('min-height', current_height +'px');
+                    }
+                }
+            }
+        </script>
+        </body>
+        </html>
